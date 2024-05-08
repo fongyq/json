@@ -35,9 +35,9 @@ body {
 .viewer {
     flex: 1;
     overflow: auto;
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow-wrap: normal;
     width: 48%;
     margin: 0 1%;
     height: 100%;
