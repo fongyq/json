@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>json-viewer</title>
+
+        <link rel="icon" href="./magnum.ico" type="image/x-icon">
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.0.0/diff.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script> -->
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/elegant.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/mdn-like.min.css" /> -->
+        
+        <!-- json viewer -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="./jquery.json-viewer-master/json-viewer/jquery.json-viewer.js"></script>
+        <link href="./jquery.json-viewer-master/json-viewer/jquery.json-viewer.css" type="text/css" rel="stylesheet">
+
+        <!-- mode -->
+        <script src="./codemirror/codemirror-5.65.16/lib/codemirror.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/perl/perl.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/python/python.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/clike/clike.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/shell/shell.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/sql/sql.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/markdown/markdown.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/gfm/gfm.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/rst/rst.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/mode/overlay.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/htmlmixed/htmlmixed.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/xml/xml.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/css/css.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/javascript/javascript.js"></script>
+        <!-- theme -->
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/lib/codemirror.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/abbott.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/elegant.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/eclipse.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/mdn-like.css" >
+        <!-- 代码折叠 -->
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/fold/foldgutter.css"/>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/foldcode.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/foldgutter.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/brace-fold.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/comment-fold.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/indent-fold.js"></script>
+        <!-- search -->
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/dialog/dialog.css"/>
+        <script src="./codemirror/codemirror-5.65.16/addon/dialog/dialog.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/search.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/searchcursor.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/jump-to-line.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/match-highlighter.js"></script>
+        <!-- 全屏模式 -->
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/display/fullscreen.css">
+        <script src="./codemirror/codemirror-5.65.16/addon/display/fullscreen.js"></script>
+        <!-- 括号匹配 -->
+        <script src="./codemirror/codemirror-5.65.16/addon/edit/matchbrackets.js"></script>
+
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/scroll/simplescrollbars.css">
+        <script src="./codemirror/codemirror-5.65.16/addon/scroll/simplescrollbars.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+        
+        <link rel="stylesheet" href="./custom.css"/>
+        
+    </head>
+    <body>
+        <div style="text-align:center;">
+            <div class="tooltip fa-regular fa-question-circle">
+                <span class="tooltiptext">
+                    <li>光标位于输入框内，F11 全屏（Mac Ctrl-B），Esc 退出全屏。</li>
+                    <br/>
+                    <li>光标位于输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
+                </span>
+            </div>
+            <select id="code-mode" class="selector" onchange="setLangMode(event)">
+                <option value="text/plain" selected>Plain</option>
+                <option value="text/x-csrc">C</option>
+                <option value="text/x-c++src">C++</option>
+                <option value="text/x-python">Python</option>
+                <option value="text/x-java">Java</option>
+                <option value="text/x-sh">Shell</option>
+                <option value="text/x-sql">SQL</option>
+                <option value="text/x-markdown">Markdown</option>
+                <option value="text/x-rst">Rst</option>
+                <option value="text/html">HTML</option>
+                <option value="text/css">CSS</option>
+                <option value="text/javascript">JavaScript</option>
+                <option value="text/x-perl">Perl</option>
+            </select>
+            <select id="code-theme" class="selector" onchange="setTheme(event)">
+                <option value="abbott">Abbott</option>
+                <option value="eclipse" selected>Eclipse</option>
+                <option value="elegant">Elegant</option>
+                <option value="mdn-like">Mdn-like</option>
+            </select>
+        </div>
+        <br>
+        <div class="editor-container">
+            <div class="editor">
+                <textarea id="code" name="code">
+{
+    "id": 1001,
+    "type": "donut",
+    "name": "Cake",
+    "description": "https://en.wikipedia.org/wiki/Doughnut",
+    "price": 2.55,
+    "available": {
+        store: 42,
+        warehouse: true
+    },
+    "toppings": [
+        { "id": 5001, "type": null },
+        { "id": 5002, "type": "Glazed" },
+        { "id": 5005, "type": "Sugar" },
+        { "id": 5003, "type": "Chocolate" },
+        { "id": 5004, "type": "Maple" }
+    ],
+    "uuids": [
+        "826b23ce-2669-4122-981f-3e2e4429159d",
+        "e32111a0-6a87-49ab-b58f-a01bf8d28ba0",
+        "c055a894-698e-41c0-b85f-7510a7351d9d",
+    ],
+}
+                </textarea>
+            </div>
+            <div class="viewer">
+                <pre id="view" name="view" oninput="render()"></pre>
+            </div>
+        </div>
+        <script>
+            var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+                lineNumbers: true,
+                lineWrapping: false,
+                scrollbarStyle: "overlay",
+                indentUnit: 4,
+                mode: 'text/plain',
+                matchBrackets: true,
+                theme: 'eclipse',
+                styleActiveLine: true,
+                foldGutter: true,
+                gutters:["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                extraKeys: {
+                    "Ctrl-B": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "F11": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "Esc": function(cm) {
+                        if(cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    }
+                }
+            });
+            editor.on('change', () => {
+                render();
+            });
+            function setLangMode(event) {
+                var mode = event.target.value;
+                editor.setOption("mode", mode);
+            }
+            function setTheme(event) {
+                var theme = event.target.value;
+                editor.setOption("theme", theme);
+            }
+            function render() {
+                var text = editor.getDoc().getValue("\n");
+                var json = eval('(' + text + ')');
+                $('#view').jsonViewer(json, {
+                    collapsed: false, 
+                    withQuotes: true, 
+                    withLinks: false
+                })
+            }
+            window.addEventListener("load", render());
+        </script>
+    </body>
+</html>
