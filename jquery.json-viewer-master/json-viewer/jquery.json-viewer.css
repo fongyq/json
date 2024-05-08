@@ -39,7 +39,7 @@ a.json-toggle:focus {
   outline: none;
 }
 a.json-toggle:before {
-  font-size: 1.1em;
+  font-size: 0.8em;
   color: #c0c0c0;
   content: "\25BC"; /* down arrow */
   position: absolute;
