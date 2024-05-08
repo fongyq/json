@@ -25,8 +25,11 @@ ul.json-dict, ol.json-array {
   color: #0B7500;
 }
 .json-literal {
-  color: #072f6f;
+  color: #09529b;
   font-weight: bold;
+}
+.json-url {
+  color: rgb(175, 102, 13);
 }
 
 /* Toggle button */

@@ -34,25 +34,28 @@ body {
 }
 .viewer {
     flex: 1;
-    overflow: scroll;
-    white-space: nowrap;
+    overflow: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     width: 48%;
     margin: 0 1%;
     height: 100%;
     font-size: 18px;
     line-height: 30px;
-    background-color: #dfedf5;
+    background-color: #e6eef3;
     border-radius: 5px;
+    border: 2px solid rgba(39, 64, 101, 0.3);
 }
-
 
 .CodeMirror{
     font-family: monospace, Consolas, 'Courier New', Courier;
     font-size: 18px;
     line-height: 24px;
     height: 100%;
-    background-color: #dfedf5;
+    background-color: #e6eef3;
     border-radius: 5px;
+    border: 2px solid rgba(39, 64, 101, 0.3);
 }
 .d2h-diff-table {
     font-size: 16px; /* diff 的字体 */
@@ -61,10 +64,10 @@ body {
 
 .selector {
     text-align: center;
-    width: 6.4rem;
-    height: 1.5rem;
+    width: 8rem;
+    height: 2rem;
     font-family: monospace, Consolas, 'Courier New', Courier;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #333;
     border-radius: 0.5rem;
@@ -72,6 +75,7 @@ body {
     border: 1px solid #ccc; 
     margin-left: 1%;
     margin-right: 1%;
+    border: 2px solid rgba(39, 64, 101, 0.3);
 }
 select:hover {
     box-shadow: 0px 0px 3px 3px #6d0404;
@@ -133,4 +137,42 @@ select:hover {
 }
 .show {
     display: block;
+}
+
+.check-box {
+    text-align: center;
+    width: 8rem;
+    height: 2rem;
+    font-family: monospace, Consolas, 'Courier New', Courier;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+#check-wrap {
+    vertical-align: middle;
+    accent-color: rgba(21, 54, 86, 0.2);
+}
+#check-wrap:hover {
+    box-shadow: 0px 0px 3px 3px #15406b;
+}
+
+.button {
+    text-align: center;
+    width: 8rem;
+    height: 2rem;
+    font-family: monospace, Consolas, 'Courier New', Courier;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    border-radius: 0.5rem;
+    background-color: rgba(223, 239, 243, 0.2); 
+    border: 1px solid #ccc; 
+    margin-left: 1%;
+    margin-right: 1%;
+    border: 2px solid rgba(39, 64, 101, 0.3);
+}
+.button:hover {
+    box-shadow: 0px 0px 3px 3px #0c5986;
 }

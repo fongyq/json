@@ -104,6 +104,10 @@
                 <option value="elegant">Elegant</option>
                 <option value="mdn-like">Mdn-like</option>
             </select>
+            <button onclick="clearText()" class="button">Clear</button>
+            <label title="长行自动换行" class="check-box">
+                <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>Wrap
+            </label>
         </div>
         <br>
         <div class="editor-container">
@@ -137,6 +141,7 @@
             <div class="viewer">
                 <pre id="view" name="view" oninput="render()"></pre>
             </div>
+
         </div>
         <script>
             var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -175,12 +180,33 @@
             }
             function render() {
                 var text = editor.getDoc().getValue("\n");
-                var json = eval('(' + text + ')');
-                $('#view').jsonViewer(json, {
-                    collapsed: false, 
-                    withQuotes: true, 
-                    withLinks: false
-                })
+                if (text == "") {
+                    document.getElementById("view").innerHTML = "";
+                } else {
+                    var json = eval('(' + text + ')');
+                    $('#view').jsonViewer(json, {
+                        collapsed: false, 
+                        withQuotes: true, 
+                        withLinks: false
+                    });
+                }
+            }
+            function checkWrap(obj) {
+                if (obj.checked) {
+                    document.getElementById("view").style.whiteSpace = "normal";
+                    document.getElementById("view").style.wordWrap = "break-word";
+                    document.getElementById("view").style.overflowWrap = "break-word";
+                    editor.setOption("lineWrapping", true);
+                } else {
+                    document.getElementById("view").style.whiteSpace = "nowrap";
+                    document.getElementById("view").style.wordWrap = "normal";
+                    document.getElementById("view").style.overflowWrap = "normal";
+                    editor.setOption("lineWrapping", false);
+                }
+            }
+            function clearText() {
+                editor.setValue("");
+                render();
             }
             window.addEventListener("load", render());
         </script>
