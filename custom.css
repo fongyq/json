@@ -35,15 +35,15 @@ body {
 .viewer {
     flex: 1;
     overflow: auto;
-    white-space: nowrap;
+    /* white-space: nowrap;
     word-wrap: normal;
-    overflow-wrap: normal;
+    overflow-wrap: normal; */
     width: 48%;
     margin: 0 1%;
     height: 100%;
     font-size: 18px;
     line-height: 30px;
-    background-color: #e6eef3;
+    background-color: #eef4f7;
     border-radius: 5px;
     border: 2px solid rgba(39, 64, 101, 0.3);
 }
@@ -53,7 +53,7 @@ body {
     font-size: 18px;
     line-height: 24px;
     height: 100%;
-    background-color: #e6eef3;
+    background-color: #eef4f7;
     border-radius: 5px;
     border: 2px solid rgba(39, 64, 101, 0.3);
 }
@@ -178,7 +178,7 @@ select:hover {
 }
 
 .fullscreen {
-    flex: 1;
+    position: fixed;
     overflow: scroll;
     top: 0;
     left: 0;
@@ -188,5 +188,5 @@ select:hover {
     padding: 0;
     border: none;
     z-index: 9999;
-    background-color: white;
+    background-color: #eef4f7;
 }

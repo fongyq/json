@@ -78,9 +78,9 @@
         <div style="text-align:center;">
             <div class="tooltip fa-regular fa-question-circle">
                 <span class="tooltiptext">
-                    <li>光标位于输入框内，F11 全屏（Mac Ctrl-B），Esc 退出全屏。</li>
+                    <li>光标位于文本框内，F11 全屏（Mac Ctrl-B），Esc 退出全屏。</li>
                     <br/>
-                    <li>光标位于输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
+                    <li>光标位于文本框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" onchange="setLangMode(event)">
@@ -106,7 +106,7 @@
             </select>
             <button onclick="clearText()" class="button">Clear</button>
             <label title="长行自动换行" class="check-box">
-                <input type="checkbox" id="check-wrap" onclick="checkWrap(this)">Wrap
+                <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>Wrap
             </label>
         </div>
         <br>
@@ -146,7 +146,7 @@
         <script>
             var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
-                lineWrapping: false,
+                lineWrapping: true,
                 scrollbarStyle: "overlay",
                 indentUnit: 4,
                 mode: 'text/plain',
@@ -204,11 +204,30 @@
                     editor.setOption("lineWrapping", false);
                 }
             }
+            function forceWrap() {
+                document.getElementById("view").style.whiteSpace = "normal";
+                document.getElementById("view").style.wordWrap = "break-word";
+                document.getElementById("view").style.overflowWrap = "break-word";
+            }
             function clearText() {
                 editor.setValue("");
                 render();
             }
+            document.addEventListener("keydown", function(event) {
+                var textarea = document.getElementById('view');
+                if (event.key == "F11" || (event.ctrlKey && (event.key == 'b' || event.key == 'B'))) {
+                    console.log("fullscreen");
+                    textarea.classList.toggle("fullscreen");
+                }
+                if (textarea.classList.contains("fullscreen")) {
+                    if (event.key == "Escape") {
+                        console.log("exit fullscreen");
+                        textarea.classList.toggle("fullscreen");
+                    }
+                }
+            });
             window.addEventListener("load", render());
+            window.addEventListener("load", forceWrap());
         </script>
     </body>
 </html>
