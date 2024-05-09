@@ -78,9 +78,9 @@
         <div style="text-align:center;">
             <div class="tooltip fa-regular fa-question-circle">
                 <span class="tooltiptext">
-                    <li>光标位于文本框内，F11 全屏（Mac Ctrl-B），Esc 退出全屏。</li>
+                    <li>光标位于文本框内，F11 / Ctrl-B 全屏，Esc 退出全屏。</li>
                     <br/>
-                    <li>光标位于输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
+                    <li>光标位于左侧输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" onchange="setLangMode(event)">
@@ -111,7 +111,7 @@
         </div>
         <br>
         <div class="editor-container">
-            <div class="editor">
+            <div class="editor" id="text1">
                 <textarea id="code" name="code">
 {
     "id": 1001,
@@ -138,7 +138,7 @@
 }
                 </textarea>
             </div>
-            <div class="viewer">
+            <div class="viewer" id="text2">
                 <pre id="view" name="view" oninput="render()"></pre>
             </div>
 
@@ -213,9 +213,24 @@
                 editor.setValue("");
                 render();
             }
+            var isOnView = false;
+            document.getElementById("text1").addEventListener("mouseenter", function(){
+                console.log("enter text1");
+                isOnView = false;
+            });
+            document.getElementById("text2").addEventListener("mouseenter", function(){
+                console.log("enter text2");
+                isOnView = true;
+            });
+            document.getElementById("view").addEventListener("mouseenter", function(){
+                console.log("enter view");
+                isOnView = true;
+            });
             document.addEventListener("keydown", function(event) {
                 var textarea = document.getElementById('view');
-                if (event.key == "F11" || (event.ctrlKey && (event.key == 'b' || event.key == 'B'))) {
+                // 光标在 viewer 文本框才触发全屏快捷键
+                if (isOnView && (event.key == "F11" || (event.ctrlKey && (event.key == 'b' || event.key == 'B')))) {
+                    if (event.key == "F11") event.preventDefault();
                     console.log("fullscreen");
                     textarea.classList.toggle("fullscreen");
                 }

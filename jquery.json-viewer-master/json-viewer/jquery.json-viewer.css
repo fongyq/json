@@ -62,7 +62,8 @@ a.json-toggle.collapsed:before {
 
 /* Collapsable placeholder links */
 a.json-placeholder {
-  color: #aaa;
+  color: #676565;
+  font-style: italic;
   padding: 0 1em;
   text-decoration: none;
 }
