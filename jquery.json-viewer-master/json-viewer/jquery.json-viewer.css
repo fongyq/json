@@ -1,5 +1,6 @@
 /* Root element */
 .json-document {
+  margin: 0;
   padding: 1em 2em;
 }
 

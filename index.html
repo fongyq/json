@@ -227,7 +227,7 @@
                 isOnView = true;
             });
             document.addEventListener("keydown", function(event) {
-                var textarea = document.getElementById('view');
+                var textarea = document.getElementById('text2');
                 // 光标在 viewer 文本框才触发全屏快捷键
                 if (isOnView && (event.key == "F11" || (event.ctrlKey && (event.key == 'b' || event.key == 'B')))) {
                     if (event.key == "F11") event.preventDefault();
