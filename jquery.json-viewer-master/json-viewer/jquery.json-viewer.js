@@ -41,6 +41,41 @@
   }
 
   /**
+   * check whether an array only contains simple-type elements.
+   * simple types: number, bool, null, string
+   */
+  function checkSimpleArray(a) {
+    if (a.length === 0) return true;
+    for (var i = 0; i < a.length; ++i) {
+      var ai = a[i];
+      if (typeof ai != 'number' && typeof ai != 'bigint' && typeof ai != 'boolean' && ai != null && typeof ai != 'string') {
+        return false;
+      }
+    }
+    return true;
+  }
+  function formatSimpleArray (a) {
+    if (a.length === 0) return "[]";
+    var sa = [];
+    for (var i = 0; i < a.length; ++i) {
+      if (typeof a[i] === 'string') {
+        // sa.push('"' + a[i] + '"');
+        sa.push('<span class="json-string">"' + a[i] + '"</span>')
+      } else if (a[i] === null) {
+        // sa.push("null");
+        sa.push('<span class="json-null">null</span>')
+      } else if (typeof a[i] === 'number' || typeof a[i] === 'bigint') {
+        sa.push('<span class="json-literal">' + a[i] + '</span>');
+      } else if (typeof a[i] === 'boolean') {
+        sa.push('<span class="json-bool">' + a[i] + '</span>');
+      } else {
+        sa.push(a[i]);
+      }
+    }
+    return "[" + sa.join(",") + "]";
+  }
+
+  /**
    * Transform a json object into html representation
    * @return string
    */
@@ -65,21 +100,26 @@
       html += '<span class="json-null">null</span>';
     } else if (json instanceof Array) {
       if (json.length > 0) {
-        html += '[<ol class="json-array">';
-        for (var i = 0; i < json.length; ++i) {
-          html += '<li>';
-          // Add toggle button if item is collapsable
-          if (isCollapsable(json[i])) {
-            html += '<a href class="json-toggle"></a>';
+        if (options.wrapSimpleArray && checkSimpleArray(json)) {
+            // html += '[' + '<span class="json-string">' + formatSimpleArray(json) + '</span>' + ']';
+            html += formatSimpleArray(json);
+        } else {
+          html += '[<ol class="json-array">';
+          for (var i = 0; i < json.length; ++i) {
+            html += '<li>';
+            // Add toggle button if item is collapsable
+            if (isCollapsable(json[i])) {
+              html += '<a href class="json-toggle"></a>';
+            }
+            html += json2html(json[i], options);
+            // Add comma if item is not last
+            if (i < json.length - 1) {
+              html += ',';
+            }
+            html += '</li>';
           }
-          html += json2html(json[i], options);
-          // Add comma if item is not last
-          if (i < json.length - 1) {
-            html += ',';
-          }
-          html += '</li>';
+          html += '</ol>]';
         }
-        html += '</ol>]';
       } else {
         html += '[]';
       }
@@ -137,7 +177,8 @@
       rootCollapsable: true,
       withQuotes: false,
       withLinks: true,
-      bigNumbers: false
+      bigNumbers: false,
+      wrapSimpleArray: false
     }, options);
 
     // jQuery chaining

@@ -105,6 +105,9 @@
                 <option value="mdn-like">Mdn-like</option>
             </select>
             <button onclick="clearText()" class="button">Clear</button>
+            <label title="简单类型数组换行" class="check-box">
+                <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)">Wrap Array
+            </label>
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>Wrap
             </label>
@@ -178,18 +181,38 @@
                 var theme = event.target.value;
                 editor.setOption("theme", theme);
             }
+            var option = {
+                collapsed: false, 
+                withQuotes: true, 
+                withLinks: false,
+                wrapSimpleArray: false
+            };
             function render() {
                 var text = editor.getDoc().getValue("\n");
                 if (text == "") {
                     document.getElementById("view").innerHTML = "";
                 } else {
                     var json = eval('(' + text + ')');
-                    $('#view').jsonViewer(json, {
+                    $('#view').jsonViewer(json, option);
+                }
+            }
+            function checkSimpleArrayWrap(obj) {
+                if (obj.checked) {
+                    option = {
                         collapsed: false, 
                         withQuotes: true, 
-                        withLinks: false
-                    });
+                        withLinks: false,
+                        wrapSimpleArray: true
+                    };
+                } else {
+                    option = {
+                        collapsed: false, 
+                        withQuotes: true, 
+                        withLinks: false,
+                        wrapSimpleArray: false
+                    };
                 }
+                render();
             }
             function checkWrap(obj) {
                 if (obj.checked) {
