@@ -106,7 +106,7 @@
             </select>
             <button onclick="clearText()" class="button">Clear</button>
             <label title="简单类型数组换行" class="check-box">
-                <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)">WrapArray
+                <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray
             </label>
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>Wrap
@@ -185,7 +185,7 @@
                 collapsed: false, 
                 withQuotes: true, 
                 withLinks: false,
-                wrapSimpleArray: false
+                wrapSimpleArray: true
             };
             function render() {
                 var text = editor.getDoc().getValue("\n");

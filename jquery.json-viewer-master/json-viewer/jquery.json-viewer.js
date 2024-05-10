@@ -100,7 +100,7 @@
       html += '<span class="json-null">null</span>';
     } else if (json instanceof Array) {
       if (json.length > 0) {
-        if (options.wrapSimpleArray && checkSimpleArray(json)) {
+        if (!options.wrapSimpleArray && checkSimpleArray(json)) {
             // html += '[' + '<span class="json-string">' + formatSimpleArray(json) + '</span>' + ']';
             html += formatSimpleArray(json);
         } else {
@@ -178,7 +178,7 @@
       withQuotes: false,
       withLinks: true,
       bigNumbers: false,
-      wrapSimpleArray: false
+      wrapSimpleArray: true
     }, options);
 
     // jQuery chaining
