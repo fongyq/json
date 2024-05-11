@@ -19,7 +19,7 @@ ul.json-dict, ol.json-array {
   font-weight: bold;
 }
 .json-null {
-  color: rgb(92, 10, 206);
+  color: rgb(124, 45, 235);
   font-weight: bold;
 }
 .json-string {
