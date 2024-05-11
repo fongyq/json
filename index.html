@@ -194,10 +194,18 @@
                 if (text == "") {
                     document.getElementById("view").innerHTML = "";
                 } else {
-                    var json = eval('(' + text + ')');
-                    $('#view').jsonViewer(json, option);
+                    try {
+                        var json = eval('(' + text + ')');
+                        $('#view').jsonViewer(json, option);
+                    } catch (e) {
+                        reportError(e);
+                    }
                 }
             }
+            window.onerror = function(message, source, lineno, colno, error) {
+                document.getElementById("view").innerHTML = error;
+                document.getElementById("view").innerHTML += "<br> Line: " + lineno + ", Column: " + colno;
+            };
             function checkSimpleArrayWrap(obj) {
                 if (obj.checked) {
                     option = {
