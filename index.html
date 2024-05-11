@@ -85,7 +85,7 @@
                     <li>取消勾选「WrapArray」只对包含简单类型元素（数值、布尔值、字符串、null）的数组生效（不换行）。</li>
                 </span>
             </div>
-            <select id="code-mode" class="selector" onchange="setLangMode(event)">
+            <select id="code-mode" class="selector" style="width: 9rem;" onchange="setLangMode(event)" title="编辑器语言">
                 <option value="text/plain" selected>Plain</option>
                 <option value="text/x-csrc">C</option>
                 <option value="text/x-c++src">C++</option>
@@ -100,18 +100,29 @@
                 <option value="text/javascript">JavaScript</option>
                 <option value="text/x-perl">Perl</option>
             </select>
-            <select id="code-theme" class="selector" onchange="setTheme(event)">
+            <select id="code-theme" class="selector" style="width: 8rem;" onchange="setTheme(event)" title="编辑器主题">
                 <option value="abbott">Abbott</option>
                 <option value="eclipse" selected>Eclipse</option>
                 <option value="elegant">Elegant</option>
                 <option value="mdn-like">Mdn-like</option>
             </select>
-            <button onclick="clearText()" class="button">Clear</button>
+            <select id="font-size" class="selector" style="width: 5rem;" onchange="setFontSize(event)" title="字体大小">
+                <option value=24>24px</option>
+                <option value=22>22px</option>
+                <option value=20>20px</option>
+                <option value=18 selected>18px</option>
+                <option value=16>16px</option>
+                <option value=14>14px</option>
+                <option value=12>12px</option>
+                <option value=10>10px</option>
+                <option value=8 > 8px</option>
+            </select>
+            <button onclick="clearText()" class="button" title="清空文本框">Clear</button>
             <label title="简单类型数组换行" class="check-box">
-                <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray
+                &nbsp;<input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray&nbsp;
             </label>
             <label title="长行自动换行" class="check-box">
-                <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow
+                &nbsp;<input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow&nbsp;
             </label>
         </div>
         <br>
@@ -182,6 +193,14 @@
             function setTheme(event) {
                 var theme = event.target.value;
                 editor.setOption("theme", theme);
+            }
+            function setFontSize(event) {
+                var fs = event.target.value;
+                document.getElementById("text2").style.fontSize = fs + "px";
+                document.getElementById("text2").style.lineHeight = Math.ceil(fs * 1.67) + "px";
+                editor.getWrapperElement().style["font-size"] = fs + "px";
+                editor.getWrapperElement().style["line-height"] = Math.ceil(fs * 1.33) + "px";
+                editor.refresh();
             }
             var option = {
                 collapsed: false, 
