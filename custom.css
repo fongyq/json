@@ -139,6 +139,10 @@ select:hover {
     display: block;
 }
 
+label:hover {
+    box-shadow: 0px 0px 3px 3px #df8219;
+    cursor: pointer;
+}
 .check-box {
     text-align: center;
     width: 8rem;
@@ -151,10 +155,6 @@ select:hover {
     margin-right: 0.2%;
     border-radius: 5px;
     padding: 0.2rem 0.5rem;
-}
-label:hover {
-    box-shadow: 0px 0px 3px 3px #df8219;
-    cursor: pointer;
 }
 #check-wrap {
     vertical-align: middle;
