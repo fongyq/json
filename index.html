@@ -70,6 +70,8 @@
         <script src="./codemirror/codemirror-5.65.16/addon/scroll/simplescrollbars.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
         
         <link rel="stylesheet" href="./custom.css"/>
         
@@ -83,6 +85,8 @@
                     <li>光标位于左侧输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
                     <br/>
                     <li>取消勾选「WrapArray」只对包含简单类型元素（数值、布尔值、字符串、null）的数组生效（不换行）。</li>
+                    <br/>
+                    <li>「Html-li」模式使用&lt;li&gt;元素的 margin 作为缩进，拷贝文本会失去缩进；「Html-p」模式使用空格作为缩进（默认四个空格），这种模式更适合拷贝。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" style="width: 9rem;" onchange="setLangMode(event)" title="编辑器语言">
@@ -100,7 +104,7 @@
                 <option value="text/javascript">JavaScript</option>
                 <option value="text/x-perl">Perl</option>
             </select>
-            <select id="code-theme" class="selector" style="width: 8rem;" onchange="setTheme(event)" title="编辑器主题">
+            <select id="code-theme" class="selector" style="width: 7.6rem;" onchange="setTheme(event)" title="编辑器主题">
                 <option value="abbott">Abbott</option>
                 <option value="eclipse" selected>Eclipse</option>
                 <option value="elegant">Elegant</option>
@@ -117,12 +121,23 @@
                 <option value=10>10px</option>
                 <option value=8 > 8px</option>
             </select>
+            <select id="view-version" class="selector" style="width: 7rem;" onchange="setViewVersion(event)" title="json2html版本">
+                <option value=1 selected>Html-li</option>
+                <option value=2>Html-p</option>
+            </select>
+            <select id="view-indent" class="selector" style="width: 3rem;" onchange="setIndentUnit(event)" title="缩进单元">
+                <option value=4 selected>4</option>
+                <option value=2>2</option>
+            </select>
             <button onclick="clearText()" class="button" title="清空文本框">Clear</button>
+            <button class="button" data-clipboard-target="#view" title="复制格式化json">Copy</button>
             <label title="简单类型数组换行" class="check-box">
                 <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray</label>
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
         </div>
+        <div class="popup" id="popup-success">复制成功</div>
+        <div class="popup" id="popup-failure">复制失败</div>
         <br>
         <div class="editor-container">
             <div class="editor" id="text1">
@@ -204,7 +219,9 @@
                 collapsed: false, 
                 withQuotes: true, 
                 withLinks: false,
-                wrapSimpleArray: true
+                wrapSimpleArray: true,
+                indentUnit: 4,
+                json2htmlVersion: 1
             };
             function render() {
                 var text = editor.getDoc().getValue("\n");
@@ -225,20 +242,21 @@
             };
             function checkSimpleArrayWrap(obj) {
                 if (obj.checked) {
-                    option = {
-                        collapsed: false, 
-                        withQuotes: true, 
-                        withLinks: false,
-                        wrapSimpleArray: true
-                    };
+                    option.wrapSimpleArray = true;
                 } else {
-                    option = {
-                        collapsed: false, 
-                        withQuotes: true, 
-                        withLinks: false,
-                        wrapSimpleArray: false
-                    };
+                    option.wrapSimpleArray = false;
                 }
+                render();
+            }
+            function setIndentUnit(obj) {
+                var unit = event.target.value;
+                option.indentUnit = parseInt(unit);
+                render();
+            }
+            function setViewVersion(obj) {
+                var version = event.target.value;
+                option.json2htmlVersion = parseInt(version);
+                console.log(option);
                 render();
             }
             function checkWrap(obj) {
@@ -293,6 +311,31 @@
             });
             window.addEventListener("load", render());
             window.addEventListener("load", forceWrap());
+            // 监听 copy 行为，把拷贝文本中的空行删除
+            document.addEventListener('copy', (event) => {
+                var toCopy = document.getSelection().toString();
+                var lines = toCopy.split("\n").filter(line => line.trim());
+                var toPaste = lines.join("\n");
+                // var toPaste = toCopy.replace(/^\s*[\r\n]\s*/gm, '');
+                event.clipboardData.setData('text/plain', toPaste);
+                event.preventDefault();
+            });
+            var clipboard = new ClipboardJS('.button');
+            function popElement(name) {
+                var popup = document.getElementById(name);
+                popup.style.display = 'flex';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 1000);
+            }
+            clipboard.on('success', function(event) {
+                event.clearSelection();
+                popElement("popup-success");
+            });
+            clipboard.on('error', function(event) {
+                console.log('复制失败 ' + event.action);
+                popElement("popup-failure");
+            });
         </script>
     </body>
 </html>

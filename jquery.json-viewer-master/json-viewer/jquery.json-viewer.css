@@ -31,6 +31,7 @@ ul.json-dict, ol.json-array {
 }
 .json-url {
   color: rgb(175, 102, 13);
+  margin: 0;
 }
 
 /* Toggle button */
@@ -70,4 +71,8 @@ a.json-placeholder {
 }
 a.json-placeholder:hover {
   text-decoration: underline;
+}
+
+p {
+  margin: 0;
 }

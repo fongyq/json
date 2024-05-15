@@ -37,7 +37,8 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/'/g, '&apos;')
-      .replace(/"/g, '&quot;');
+      .replace(/"/g, '&quot;')
+      .replace(/ /g, '&nbsp;');
   }
 
   /**
@@ -60,7 +61,7 @@
     for (var i = 0; i < a.length; ++i) {
       if (typeof a[i] === 'string') {
         // sa.push('"' + a[i] + '"');
-        sa.push('<span class="json-string">"' + a[i] + '"</span>')
+        sa.push('<span class="json-string">"' + htmlEscape(a[i]) + '"</span>')
       } else if (a[i] === null) {
         // sa.push("null");
         sa.push('<span class="json-null">null</span>')
@@ -77,6 +78,7 @@
 
   /**
    * Transform a json object into html representation
+   * Use <li> elements
    * @return string
    */
   function json2html(json, options) {
@@ -166,10 +168,86 @@
   }
 
   /**
+   * Transform a json object into html representation
+   * Use <p> elements
+   * @return string
+   */
+  function json2htmlV2(json, options, indent) {
+    var html = '';
+    if (typeof json === 'string') {
+      // Escape tags and quotes
+      json = htmlEscape(json);
+
+      if (isUrl(json)) {
+        html += '<a href="' + json + '" class="json-url" target="_blank">' + '"' + json + '"' + '</a>';
+      } else {
+        // Escape double quotes in the rendered non-URL string.
+        json = json.replace(/&quot;/g, '\\&quot;');
+        html += '<span class="json-string">"' + json + '"</span>';
+      }
+    } else if (typeof json === 'number' || typeof json === 'bigint') {
+      html += '<span class="json-literal">' + json + '</span>';
+    } else if (typeof json === 'boolean') {
+      html += '<span class="json-bool">' + json + '</span>';
+    } else if (json === null) {
+      html += '<span class="json-null">null</span>';
+    } else if (json instanceof Array) {
+      if (json.length > 0) {
+        if (!options.wrapSimpleArray && checkSimpleArray(json)) {
+            html += formatSimpleArray(json);
+        } else {
+          html += '[<span class="json-array">';
+          for (var i = 0; i < json.length; ++i) {
+            html += '<p>' + indentUnit + indent;
+            html += json2htmlV2(json[i], options, indent + indentUnit);
+            // Add comma if item is not last
+            if (i < json.length - 1) {
+              html += ',';
+            }
+            html += '</p>';
+          }
+          html += '</span>' + indent + ']';
+        }
+      } else {
+        html += '[]';
+      }
+    } else if (typeof json === 'object') {
+        var keyCount = Object.keys(json).length;
+        if (keyCount > 0) {
+          html += '{<span class="json-dict">';
+          for (var key in json) {
+            if (Object.prototype.hasOwnProperty.call(json, key)) {
+              // define a parameter of the json value first to prevent get null from key when the key changed by the function `htmlEscape(key)`
+              var jsonElement = json[key];
+              key = htmlEscape(key);
+              var keyRepr = options.withQuotes ?
+                '<span class="json-key">"' + key + '"</span>' : key;
+              html += '<p>' + indentUnit + indent;
+              html += keyRepr;
+              html += ': ' + json2htmlV2(jsonElement, options, indent + indentUnit);
+              // Add comma if item is not last
+              if (--keyCount > 0) {
+                html += ',';
+              }
+              html += '</p>';
+            }
+          }
+          html += '</span>' + indent + '}';
+        } else {
+          html += '{}';
+        }
+    }
+    return html;
+  }
+
+  /**
    * jQuery plugin method
    * @param json: a javascript object
    * @param options: an optional options hash
    */
+  var indent2 = "&nbsp;&nbsp;";
+  var indent4 = "&nbsp;&nbsp;&nbsp;&nbsp;";
+  var indentUnit = "";
   $.fn.jsonViewer = function(json, options) {
     // Merge user options with default options
     options = Object.assign({}, {
@@ -178,47 +256,64 @@
       withQuotes: false,
       withLinks: true,
       bigNumbers: false,
-      wrapSimpleArray: true
+      wrapSimpleArray: true,
+      indentUnit: 4,
+      json2htmlVersion: 1
     }, options);
 
-    // jQuery chaining
-    return this.each(function() {
+    if (options.indentUnit === 2) {
+      indentUnit = indent2;
+    } else {
+      indentUnit = indent4;
+    }
 
-      // Transform to HTML
-      var html = json2html(json, options);
-      if (options.rootCollapsable && isCollapsable(json)) {
-        html = '<a href class="json-toggle"></a>' + html;
-      }
+    if (options.json2htmlVersion === 1) {
+      // jQuery chaining
+      return this.each(function() {
 
-      // Insert HTML in target DOM element
-      $(this).html(html);
-      $(this).addClass('json-document');
-
-      // Bind click on toggle buttons
-      $(this).off('click');
-      $(this).on('click', 'a.json-toggle', function() {
-        var target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
-        target.toggle();
-        if (target.is(':visible')) {
-          target.siblings('.json-placeholder').remove();
-        } else {
-          var count = target.children('li').length;
-          var placeholder = count + (count > 1 ? ' items' : ' item');
-          target.after('<a href class="json-placeholder">' + placeholder + '</a>');
+        // Transform to HTML
+        var html = json2html(json, options);
+        if (options.rootCollapsable && isCollapsable(json)) {
+          html = '<a href class="json-toggle"></a>' + html;
         }
-        return false;
-      });
 
-      // Simulate click on toggle button when placeholder is clicked
-      $(this).on('click', 'a.json-placeholder', function() {
-        $(this).siblings('a.json-toggle').click();
-        return false;
-      });
+        // Insert HTML in target DOM element
+        $(this).html(html);
+        $(this).addClass('json-document');
 
-      if (options.collapsed == true) {
-        // Trigger click to collapse all nodes
-        $(this).find('a.json-toggle').click();
-      }
-    });
+        // Bind click on toggle buttons
+        $(this).off('click');
+        $(this).on('click', 'a.json-toggle', function() {
+          var target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
+          target.toggle();
+          if (target.is(':visible')) {
+            target.siblings('.json-placeholder').remove();
+          } else {
+            var count = target.children('li').length;
+            var placeholder = count + (count > 1 ? ' items' : ' item');
+            target.after('<a href class="json-placeholder">' + placeholder + '</a>');
+          }
+          return false;
+        });
+
+        // Simulate click on toggle button when placeholder is clicked
+        $(this).on('click', 'a.json-placeholder', function() {
+          $(this).siblings('a.json-toggle').click();
+          return false;
+        });
+
+        if (options.collapsed == true) {
+          // Trigger click to collapse all nodes
+          $(this).find('a.json-toggle').click();
+        }
+      });
+    } else {
+      return this.each(function() {
+        var html = json2htmlV2(json, options, "");
+        console.log(html);
+        $(this).html(html);
+        $(this).addClass('json-document');
+      });
+    }
   };
 })(jQuery);
