@@ -310,7 +310,6 @@
     } else {
       return this.each(function() {
         var html = json2htmlV2(json, options, "");
-        console.log(html);
         $(this).html(html);
         $(this).addClass('json-document');
       });

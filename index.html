@@ -256,7 +256,6 @@
             function setViewVersion(obj) {
                 var version = event.target.value;
                 option.json2htmlVersion = parseInt(version);
-                console.log(option);
                 render();
             }
             function checkWrap(obj) {
@@ -315,8 +314,8 @@
             document.addEventListener('copy', (event) => {
                 var toCopy = document.getSelection().toString();
                 var lines = toCopy.split("\n").filter(line => line.trim());
+                // console.log(lines);
                 var toPaste = lines.join("\n");
-                // var toPaste = toCopy.replace(/^\s*[\r\n]\s*/gm, '');
                 event.clipboardData.setData('text/plain', toPaste);
                 event.preventDefault();
             });
