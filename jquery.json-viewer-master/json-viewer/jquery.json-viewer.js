@@ -88,7 +88,9 @@
       json = htmlEscape(json);
 
       if (isUrl(json)) {
-        html += '<a href="' + json + '" class="json-url" target="_blank">' + '"' + json + '"' + '</a>';
+        html += '<span class="json-url">"</span>' + 
+          '<a href="' + json + '" class="json-url" target="_blank">' + json + '</a>' +
+          '<span class="json-url">"</span>';
       } else {
         // Escape double quotes in the rendered non-URL string.
         json = json.replace(/&quot;/g, '\\&quot;');
@@ -103,7 +105,6 @@
     } else if (json instanceof Array) {
       if (json.length > 0) {
         if (!options.wrapSimpleArray && checkSimpleArray(json)) {
-            // html += '[' + '<span class="json-string">' + formatSimpleArray(json) + '</span>' + ']';
             html += formatSimpleArray(json);
         } else {
           html += '[<ol class="json-array">';
@@ -179,7 +180,9 @@
       json = htmlEscape(json);
 
       if (isUrl(json)) {
-        html += '<a href="' + json + '" class="json-url" target="_blank">' + '"' + json + '"' + '</a>';
+        html += '<span class="json-url">"</span>' + 
+          '<a href="' + json + '" class="json-url" target="_blank">' + json + '</a>' +
+          '<span class="json-url">"</span>';
       } else {
         // Escape double quotes in the rendered non-URL string.
         json = json.replace(/&quot;/g, '\\&quot;');
