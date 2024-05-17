@@ -68,7 +68,7 @@ body {
     width: 8rem;
     height: 2rem;
     font-family: monospace, Consolas, 'Courier New', Courier;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #333;
     border-radius: 0.5rem;
@@ -150,7 +150,7 @@ label:hover {
     width: 8rem;
     height: 2rem;
     font-family: monospace, Consolas, 'Courier New', Courier;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #333;
     margin-left: 0.2%;
@@ -172,7 +172,7 @@ label:hover {
     width: 5.5rem;
     height: 2rem;
     font-family: monospace, Consolas, 'Courier New', Courier;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #333;
     border-radius: 0.5rem;
