@@ -131,7 +131,8 @@
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
-            <button class="button" data-clipboard-target="#view" title="复制格式化json">Copy</button>
+            <button class="button" id="paste" title="粘贴剪切板的文本">Paste</button>
+            <button class="button" id="copy" data-clipboard-target="#view" title="复制格式化json">Copy</button>
             <button onclick="clearText()" class="button" title="清空文本框">Clear</button>
             <label title="简单类型数组换行" class="check-box">
                 <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray</label>
@@ -329,8 +330,13 @@
             });
             var clipboard = new ClipboardJS('.button');
             function popElement(name) {
+                var btn = document.getElementById("copy");
+                var btnRect = btn.getBoundingClientRect();
                 var popup = document.getElementById(name);
+                var ppRect = popup.getBoundingClientRect();
                 popup.style.display = 'flex';
+                popup.style.top = btnRect.bottom + 20 + "px";
+                popup.style.left = btnRect.left - (ppRect.width - btnRect.width) / 2 + "px";
                 setTimeout(() => {
                     popup.style.display = 'none';
                 }, 1000);
@@ -343,6 +349,13 @@
                 console.log('复制失败 ' + event.action);
                 popElement("popup-failure");
             });
+            document.getElementById("paste").addEventListener(
+                "click",
+                async(e) => {
+                    const text = await navigator.clipboard.readTect();
+                    editor.setValue(text);
+                }
+            )
         </script>
     </body>
 </html>
