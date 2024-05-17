@@ -325,6 +325,8 @@
             // 监听 copy 行为，把拷贝文本中的空行删除
             document.addEventListener('copy', (event) => {
                 var toCopy = document.getSelection().toString();
+                // 把 html 的 &nbsp; 替换回空格
+                var toCopy = toCopy.replace(/\u00A0/g, " ");
                 var lines = toCopy.split("\n").filter(line => line.trim());
                 // console.log(lines);
                 var toPaste = lines.join("\n");
