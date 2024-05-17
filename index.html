@@ -89,6 +89,8 @@
                     <li>「Html-li」模式使用&lt;li&gt;元素的 padding 作为缩进，拷贝文本会失去缩进；「Html-p」模式使用空格作为缩进（默认四个空格），拷贝文本可以保持缩进，但是长行自动换行时会失去缩进。</li>
                     <br/>
                     <li>左侧输入框本身自带Json简单高亮和折叠功能，推荐使用「JavaScript」+「Mdn-like」。</li>
+                    <br/>
+                    <li>可以在浏览器的网站权限设置中添加剪切板读权限，避免每次粘贴都需要询问。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" style="width: 9rem;" onchange="setLangMode(event)" title="编辑器语言">
@@ -176,6 +178,7 @@
 
         </div>
         <script>
+            var viewer = document.getElementById("view");
             var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
                 lineWrapping: true,
@@ -235,7 +238,7 @@
             function render() {
                 var text = editor.getDoc().getValue("\n");
                 if (text == "") {
-                    document.getElementById("view").innerHTML = "";
+                    viewer.innerHTML = "";
                 } else {
                     try {
                         var json = eval('(' + text + ')');
@@ -246,8 +249,8 @@
                 }
             }
             window.onerror = function(message, source, lineno, colno, error) {
-                document.getElementById("view").innerHTML = error;
-                document.getElementById("view").innerHTML += "<br> Line: " + lineno + ", Column: " + colno;
+                viewer.innerHTML = error;
+                viewer.innerHTML += "<br> Line: " + lineno + ", Column: " + colno;
             };
             function checkSimpleArrayWrap(obj) {
                 if (obj.checked) {
@@ -269,21 +272,21 @@
             }
             function checkWrap(obj) {
                 if (obj.checked) {
-                    document.getElementById("view").style.whiteSpace = "normal";
-                    document.getElementById("view").style.wordWrap = "break-word";
-                    document.getElementById("view").style.overflowWrap = "break-word";
+                    viewer.style.whiteSpace = "normal";
+                    viewer.style.wordWrap = "break-word";
+                    viewer.style.overflowWrap = "break-word";
                     editor.setOption("lineWrapping", true);
                 } else {
-                    document.getElementById("view").style.whiteSpace = "nowrap";
-                    document.getElementById("view").style.wordWrap = "normal";
-                    document.getElementById("view").style.overflowWrap = "normal";
+                    viewer.style.whiteSpace = "nowrap";
+                    viewer.style.wordWrap = "normal";
+                    viewer.style.overflowWrap = "normal";
                     editor.setOption("lineWrapping", false);
                 }
             }
             function forceWrap() {
-                document.getElementById("view").style.whiteSpace = "normal";
-                document.getElementById("view").style.wordWrap = "break-word";
-                document.getElementById("view").style.overflowWrap = "break-word";
+                viewer.style.whiteSpace = "normal";
+                viewer.style.wordWrap = "break-word";
+                viewer.style.overflowWrap = "break-word";
             }
             function clearText() {
                 editor.setValue("");
@@ -298,7 +301,7 @@
                 console.log("enter text2");
                 isOnView = true;
             });
-            document.getElementById("view").addEventListener("mouseenter", function(){
+            viewer.addEventListener("mouseenter", function(){
                 console.log("enter view");
                 isOnView = true;
             });
