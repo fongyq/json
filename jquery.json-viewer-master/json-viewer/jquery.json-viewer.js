@@ -248,8 +248,8 @@
    * @param json: a javascript object
    * @param options: an optional options hash
    */
-  var indent2 = "&nbsp;&nbsp;";
-  var indent4 = "&nbsp;&nbsp;&nbsp;&nbsp;";
+  const indent2 = "&nbsp;&nbsp;";
+  const indent4 = "&nbsp;&nbsp;&nbsp;&nbsp;";
   var indentUnit = "";
   $.fn.jsonViewer = function(json, options) {
     // Merge user options with default options
