@@ -333,8 +333,8 @@
                 var btn = document.getElementById("copy");
                 var btnRect = btn.getBoundingClientRect();
                 var popup = document.getElementById(name);
-                var ppRect = popup.getBoundingClientRect();
                 popup.style.display = 'flex';
+                var ppRect = popup.getBoundingClientRect();
                 popup.style.top = btnRect.bottom + 20 + "px";
                 popup.style.left = btnRect.left - (ppRect.width - btnRect.width) / 2 + "px";
                 setTimeout(() => {
@@ -352,7 +352,7 @@
             document.getElementById("paste").addEventListener(
                 "click",
                 async(e) => {
-                    const text = await navigator.clipboard.readTect();
+                    const text = await navigator.clipboard.readText();
                     editor.setValue(text);
                 }
             )
