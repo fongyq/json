@@ -141,8 +141,7 @@
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
         </div>
-        <div class="popup" id="popup-success">复制成功</div>
-        <div class="popup" id="popup-failure">复制失败</div>
+        <div class="popup" id="popup-info"></div>
         <br>
         <div class="editor-container">
             <div class="editor" id="text1">
@@ -334,11 +333,12 @@
                 event.preventDefault();
             });
             var clipboard = new ClipboardJS('.button');
-            function popElement(name) {
+            function popElement(info) {
                 var btn = document.getElementById("copy");
                 var btnRect = btn.getBoundingClientRect();
-                var popup = document.getElementById(name);
+                var popup = document.getElementById("popup-info");
                 popup.style.display = 'flex';
+                popup.innerText = info;
                 var ppRect = popup.getBoundingClientRect();
                 popup.style.top = btnRect.bottom + 20 + "px";
                 popup.style.left = btnRect.left - (ppRect.width - btnRect.width) / 2 + "px";
@@ -348,11 +348,11 @@
             }
             clipboard.on('success', function(event) {
                 event.clearSelection();
-                popElement("popup-success");
+                popElement("复制成功");
             });
             clipboard.on('error', function(event) {
                 console.log('复制失败 ' + event.action);
-                popElement("popup-failure");
+                popElement("复制失败");
             });
             document.getElementById("paste").addEventListener(
                 "click",
