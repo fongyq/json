@@ -336,7 +336,6 @@
             function popElement(info, boxName, pos, timeout) {
                 var box = document.getElementById(boxName);
                 var boxRect = box.getBoundingClientRect();
-                console.log(boxRect);
                 var popup = document.getElementById("popup-info");
                 popup.style.display = 'flex';
                 popup.innerText = info;
