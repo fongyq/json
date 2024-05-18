@@ -93,8 +93,9 @@
                     <li>可以在浏览器的网站权限设置中添加剪切板读权限，避免每次粘贴都需要询问。</li>
                 </span>
             </div>
-            <select id="code-mode" class="selector" style="width: 8.5rem;" onchange="setLangMode(event)" title="编辑器语言">
+            <select id="code-mode" class="selector" style="width: 8rem;" onchange="setLangMode(event)" title="编辑器语言">
                 <option value="text/plain" selected>Plain</option>
+                <option value="text/javascript">JavaScript</option>
                 <option value="text/x-csrc">C</option>
                 <option value="text/x-c++src">C++</option>
                 <option value="text/x-python">Python</option>
@@ -105,10 +106,9 @@
                 <option value="text/x-rst">Rst</option>
                 <option value="text/html">HTML</option>
                 <option value="text/css">CSS</option>
-                <option value="text/javascript">JavaScript</option>
                 <option value="text/x-perl">Perl</option>
             </select>
-            <select id="code-theme" class="selector" style="width: 7rem;" onchange="setTheme(event)" title="编辑器主题">
+            <select id="code-theme" class="selector" style="width: 6.4rem;" onchange="setTheme(event)" title="编辑器主题">
                 <option value="abbott">Abbott</option>
                 <option value="eclipse" selected>Eclipse</option>
                 <option value="elegant">Elegant</option>
