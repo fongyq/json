@@ -333,32 +333,39 @@
                 event.preventDefault();
             });
             var clipboard = new ClipboardJS('.button');
-            function popElement(info) {
-                var btn = document.getElementById("copy");
-                var btnRect = btn.getBoundingClientRect();
+            function popElement(info, boxName, pos, timeout) {
+                var box = document.getElementById(boxName);
+                var boxRect = box.getBoundingClientRect();
+                console.log(boxRect);
                 var popup = document.getElementById("popup-info");
                 popup.style.display = 'flex';
                 popup.innerText = info;
                 var ppRect = popup.getBoundingClientRect();
-                popup.style.top = btnRect.bottom + 20 + "px";
-                popup.style.left = btnRect.left - (ppRect.width - btnRect.width) / 2 + "px";
+                if (pos === "under") {
+                    popup.style.top = boxRect.bottom + 20 + "px";
+                    popup.style.left = boxRect.left - (ppRect.width - boxRect.width) / 2 + "px";
+                } else if (pos === "center") {
+                    popup.style.top = boxRect.top + (boxRect.height - ppRect.height) / 2 + "px";
+                    popup.style.left = boxRect.left - (ppRect.width - boxRect.width) / 2 + "px";
+                }
                 setTimeout(() => {
                     popup.style.display = 'none';
-                }, 1000);
+                }, timeout);
             }
             clipboard.on('success', function(event) {
                 event.clearSelection();
-                popElement("复制成功");
+                popElement("复制成功", "copy", "under", 1000);
             });
             clipboard.on('error', function(event) {
                 console.log('复制失败 ' + event.action);
-                popElement("复制失败");
+                popElement("复制失败", "copy", "under", 1000);
             });
             document.getElementById("paste").addEventListener(
                 "click",
                 async(e) => {
                     const text = await navigator.clipboard.readText();
                     editor.setValue(text);
+                    popElement("粘贴成功", "text1", "center", 500);
                 }
             );
         </script>
