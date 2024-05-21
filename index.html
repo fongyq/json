@@ -353,7 +353,7 @@
             }
             clipboard.on('success', function(event) {
                 event.clearSelection();
-                popElement("复制成功", "copy", "under", 1000);
+                popElement("复制完成", "copy", "under", 1000);
             });
             clipboard.on('error', function(event) {
                 console.log('复制失败 ' + event.action);
