@@ -91,6 +91,8 @@
                     <li>左侧输入框本身自带Json简单高亮和折叠功能，推荐使用「JavaScript」+「Mdn-like」。</li>
                     <br/>
                     <li>可以在浏览器的网站权限设置中添加剪切板读权限，避免每次粘贴都需要询问。</li>
+                    <br/>
+                    <li>「Str2Json」把形如 A(a=hello,b=true,c(d=3)) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" style="width: 8rem;" onchange="setLangMode(event)" title="编辑器语言">
@@ -133,8 +135,9 @@
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
+            <button class="button" id="str2json" style="width: 6rem" onclick="str2json()" title="类对象或Map类型的字符串转json">Str2Json</button>
             <button class="button" id="paste" title="粘贴剪切板的文本">Paste</button>
-            <button class="button" id="copy" data-clipboard-target="#view" title="复制格式化json">Copy</button>
+            <button class="button" id="copy" style="width: 4rem" data-clipboard-target="#view" title="复制格式化json">Copy</button>
             <button onclick="clearText()" class="button" title="清空文本框">Clear</button>
             <label title="简单类型数组换行" class="check-box">
                 <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray</label>
