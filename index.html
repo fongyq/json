@@ -255,11 +255,11 @@
                 if (text == "") {
                     viewer.innerHTML = "";
                 } else {
-                    text = text.replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
+                    text = text.trim().replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
                             .replace(/\)/g, '}}')
                             .replace(/=/g, ':')
-                            // 加双引号
-                            .replace(/([-+.a-zA-Z_0-9]+)/g, '"$1"')
+                            // key 和 value 加双引号
+                            .replace(/([^\{\}\[\],:'"]+)/g, '"$1"')
                             .replace(/"true"/g, 'true')
                             .replace(/"false"/g, 'false')
                             .replace(/"null"/g, 'null')
