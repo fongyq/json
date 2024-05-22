@@ -250,6 +250,31 @@
                     }
                 }
             }
+            function str2json() {
+                var text = editor.getDoc().getValue("\n");
+                if (text == "") {
+                    viewer.innerHTML = "";
+                } else {
+                    text = text.replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{)
+                            .replace(/\)/g, '}}')
+                            .replace(/=/g, ':')
+                            // 加双引号
+                            .replace(/([-+.a-zA-Z_0-9]+)/g, '"$1"')
+                            .replace(/"true"/g, 'true')
+                            .replace(/"false"/g, 'false')
+                            .replace(/"null"/g, 'null')
+                            // 去掉数值型 value 的双引号
+                            .replace(/"(\+?|-?)([0-9]+[.]?[0-9]*)"(?!:)/g, '$1$2')
+                            // 去掉多余的双引号
+                            .replace(/"{2,}/g, '"');
+                    try {
+                        var json = eval('(' + text + ')');
+                        $('#view').jsonViewer(json, option);
+                    } catch (e) {
+                        reportError(e);
+                    }
+                }
+            }
             window.onerror = function(message, source, lineno, colno, error) {
                 viewer.innerHTML = error;
                 viewer.innerHTML += "<br> Line: " + lineno + ", Column: " + colno;
