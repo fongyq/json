@@ -92,7 +92,7 @@
                     <br/>
                     <li>可以在浏览器的网站权限设置中添加剪切板读权限，避免每次粘贴都需要询问。</li>
                     <br/>
-                    <li>「Str2Json」把形如 A(a=hello,b=true,c(d=3)) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
+                    <li>「Str2Json」把形如 A(a=hello,b=true,c=D(e=[null,null])) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" style="width: 8rem;" onchange="setLangMode(event)" title="编辑器语言">
@@ -260,13 +260,13 @@
                             .replace(/=/g, ':')
                             // 加双引号
                             .replace(/([-+.a-zA-Z_0-9]+)/g, '"$1"')
+                            // 去掉多余的双引号
+                            .replace(/"{2,}/g, '"')
                             .replace(/"true"/g, 'true')
                             .replace(/"false"/g, 'false')
                             .replace(/"null"/g, 'null')
                             // 去掉数值型 value 的双引号
-                            .replace(/"(\+?|-?)([0-9]+[.]?[0-9]*)"(?!:)/g, '$1$2')
-                            // 去掉多余的双引号
-                            .replace(/"{2,}/g, '"');
+                            .replace(/"(\+?|-?)([0-9]+[.]?[0-9]*)"(?!:)/g, '$1$2');
                     try {
                         var json = eval('(' + text + ')');
                         $('#view').jsonViewer(json, option);
