@@ -255,7 +255,7 @@
                 if (text == "") {
                     viewer.innerHTML = "";
                 } else {
-                    text = text.replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{)
+                    text = text.replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
                             .replace(/\)/g, '}}')
                             .replace(/=/g, ':')
                             // 加双引号
