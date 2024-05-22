@@ -259,7 +259,7 @@
                             .replace(/\)/g, '}}')
                             .replace(/=/g, ':')
                             // key 和 value 加双引号
-                            .replace(/([^\{\}\[\],:'"]+)/g, '"$1"')
+                            .replace(/([^\{\}\[\],:'" ]+)/g, '"$1"')
                             .replace(/"true"/g, 'true')
                             .replace(/"false"/g, 'false')
                             .replace(/"null"/g, 'null')
