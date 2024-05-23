@@ -256,7 +256,8 @@
                 if (text == "") {
                     viewer.innerHTML = "";
                 } else {
-                    text = text.trim().replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
+                    text = text.trim().replace(/\n/g, '')
+                            .replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
                             .replace(/\)/g, '}}')
                             .replace(/=/g, ':')
                             // key 和 value 加双引号
