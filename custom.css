@@ -162,6 +162,10 @@ label:hover {
     border-radius: 5px;
     padding: 0.2rem 0.5rem;
 }
+#check-str2json {
+    vertical-align: middle;
+    accent-color: rgba(21, 54, 86, 0.2);
+}
 #check-wrap {
     vertical-align: middle;
     accent-color: rgba(21, 54, 86, 0.2);

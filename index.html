@@ -135,10 +135,11 @@
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
-            <button class="button" id="str2json" style="width: 6rem" onclick="str2json()" title="类对象或Map类型的字符串转json">Str2Json</button>
             <button class="button" id="paste" title="粘贴剪切板的文本">Paste</button>
             <button class="button" id="copy" style="width: 4rem" data-clipboard-target="#view" title="复制格式化json">Copy</button>
             <button onclick="clearText()" class="button" style="width: 4.5rem" title="清空文本框">Clear</button>
+            <label title="类对象或Map类型的字符串转json" class="check-box">
+                <input type="checkbox" id="check-str2json" onclick="checkStr2Json(this)">Str2Json</label>
             <label title="简单类型数组换行" class="check-box">
                 <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray</label>
             <label title="长行自动换行" class="check-box">
@@ -169,8 +170,8 @@
     "uuids": [
         "826b23ce-2669-4122-981f-3e2e4429159d",
         "e32111a0-6a87-49ab-b58f-a01bf8d28ba0",
-        "c055a894-698e-41c0-b85f-7510a7351d9d",
-    ],
+        "c055a894-698e-41c0-b85f-7510a7351d9d"
+    ]
 }
                 </textarea>
             </div>
@@ -230,6 +231,15 @@
                 editor.getWrapperElement().style["line-height"] = Math.ceil(fs * 1.33) + "px";
                 editor.refresh();
             }
+            var str2JsonFlag = false;
+            function checkStr2Json(obj) {
+                if (obj.checked) {
+                    str2JsonFlag = true;
+                } else {
+                    str2JsonFlag = false;
+                }
+                render();
+            }
             var option = {
                 collapsed: false, 
                 withQuotes: true, 
@@ -243,6 +253,9 @@
                 if (text == "") {
                     viewer.innerHTML = "";
                 } else {
+                    if (str2JsonFlag) {
+                        text = convertStr2Json(text);
+                    }
                     try {
                         var json = eval('(' + text + ')');
                         $('#view').jsonViewer(json, option);
@@ -251,10 +264,9 @@
                     }
                 }
             }
-            function str2json() {
-                var text = editor.getDoc().getValue("\n");
+            function convertStr2Json(text) {
                 if (text == "") {
-                    viewer.innerHTML = "";
+                    return "";
                 } else {
                     text = text.trim().replace(/\n/g, '')
                             .replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
@@ -269,12 +281,7 @@
                             .replace(/"(\+?|-?)([0-9]+[.]?[0-9]*)"(?!:)/g, '$1$2')
                             // 去掉多余的双引号
                             .replace(/"{2,}/g, '"');
-                    try {
-                        var json = eval('(' + text + ')');
-                        $('#view').jsonViewer(json, option);
-                    } catch (e) {
-                        reportError(e);
-                    }
+                    return text;
                 }
             }
             window.onerror = function(message, source, lineno, colno, error) {
