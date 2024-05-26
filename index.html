@@ -226,9 +226,7 @@
             function setFontSize(event) {
                 var fs = event.target.value;
                 viewer.style.fontSize = fs + "px";
-                viewer.style.lineHeight = Math.ceil(fs * 1.67) + "px";
                 editor.getWrapperElement().style["font-size"] = fs + "px";
-                editor.getWrapperElement().style["line-height"] = Math.ceil(fs * 1.33) + "px";
                 editor.refresh();
             }
             var str2JsonFlag = false;
