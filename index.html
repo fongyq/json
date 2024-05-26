@@ -388,11 +388,11 @@
             }
             clipboard.on('success', function(event) {
                 event.clearSelection();
-                popElement("复制完成", "copy", "under", 1000);
+                popElement("复制完成", "text2", "center", 1000);
             });
             clipboard.on('error', function(event) {
                 console.log('复制失败 ' + event.action);
-                popElement("复制失败", "copy", "under", 1000);
+                popElement("复制失败", "text2", "center", 1000);
             });
             document.getElementById("paste").addEventListener(
                 "click",
