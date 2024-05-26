@@ -43,7 +43,7 @@ body {
     width: 48%;
     margin: 0 1%;
     height: 100%;
-    line-height: 30px;
+    line-height: 1.67;
     background-color: #eef4f7;
     border-radius: 5px;
     border: 2px solid rgba(39, 64, 101, 0.3);
@@ -57,7 +57,7 @@ body {
 .CodeMirror{
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
     font-size: 18px;
-    line-height: 24px;
+    line-height: 1.33;
     height: 100%;
     background-color: #eef4f7;
     border-radius: 5px;
