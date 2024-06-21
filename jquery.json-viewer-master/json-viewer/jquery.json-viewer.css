@@ -13,6 +13,7 @@ ul.json-dict, ol.json-array {
 }
 .json-key {
   color: rgb(151, 6, 6);
+  font-weight: bold;
 }
 .json-bool {
   color: rgb(134, 91, 11);
