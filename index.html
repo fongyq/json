@@ -94,6 +94,8 @@
                     <li>可以在浏览器的网站权限设置中添加剪切板读权限，避免每次粘贴都需要询问。</li>
                     <br/>
                     <li>「Str2Json」把形如 A(a=hello,b=true,c=D(e=[null,null])) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
+                    <br/>
+                    <li>浮点数如果小数部分是 0，那么转换之后小数点会被丢失，变成整数。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" style="width: 8rem;" onchange="setLangMode(event)" title="编辑器语言">
