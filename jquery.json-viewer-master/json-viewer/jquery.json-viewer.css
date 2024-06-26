@@ -12,7 +12,7 @@ ul.json-dict, ol.json-array {
   padding-left: 2em;
 }
 .json-key {
-  color: rgb(151, 6, 6);
+  color: rgb(180, 20, 20);
   font-weight: bold;
 }
 .json-bool {
@@ -25,6 +25,7 @@ ul.json-dict, ol.json-array {
 }
 .json-string {
   color: #0B7500;
+  font-weight: bold;
 }
 .json-literal {
   color: #226bb5;
@@ -32,6 +33,7 @@ ul.json-dict, ol.json-array {
 }
 .json-url {
   color: rgb(175, 102, 13);
+  font-weight: bold;
   margin: 0;
 }
 
