@@ -244,20 +244,12 @@
                 }
                 render();
             }
-            var sortKeyFlag = false;
-            function checkSortKey(obj) {
-                if (obj.checked) {
-                    sortKeyFlag = true;
-                } else {
-                    sortKeyFlag = false;
-                }
-                render();
-            }
             var option = {
                 collapsed: false, 
                 withQuotes: true, 
                 withLinks: false,
                 wrapSimpleArray: true,
+                sortKey: false,
                 indentUnit: 4,
                 json2htmlVersion: 1
             };
@@ -271,15 +263,6 @@
                     }
                     try {
                         var json = eval('(' + text + ')');
-                        if (sortKeyFlag) {
-                            json = Object.keys(json).sort().reduce(
-                                (obj, key) => {
-                                    obj[key] = json[key];
-                                    return obj;
-                                },
-                                {}
-                            );
-                        }
                         $('#view').jsonViewer(json, option);
                     } catch (e) {
                         reportError(e);
@@ -310,6 +293,14 @@
                 viewer.innerHTML = error;
                 viewer.innerHTML += "<br> Line: " + lineno + ", Column: " + colno;
             };
+            function checkSortKey(obj) {
+                if (obj.checked) {
+                    option.sortKey = true;
+                } else {
+                    option.sortKey = false;
+                }
+                render();
+            }
             function checkSimpleArrayWrap(obj) {
                 if (obj.checked) {
                     option.wrapSimpleArray = true;

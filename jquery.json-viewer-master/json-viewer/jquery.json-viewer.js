@@ -77,6 +77,19 @@
   }
 
   /**
+   * Sort dict by key
+   */
+  function sortDictByKey(dict) {
+    return Object.keys(dict).sort().reduce(
+        (obj, key) => {
+            obj[key] = dict[key];
+            return obj;
+        },
+        {}
+    );
+  }
+
+  /**
    * Transform a json object into html representation
    * Use <li> elements
    * @return string
@@ -135,6 +148,9 @@
       } else {
         var keyCount = Object.keys(json).length;
         if (keyCount > 0) {
+          if (options.sortKey) {
+            json = sortDictByKey(json);
+          }
           html += '{<ul class="json-dict">';
           for (var key in json) {
             if (Object.prototype.hasOwnProperty.call(json, key)) {
@@ -217,6 +233,9 @@
     } else if (typeof json === 'object') {
         var keyCount = Object.keys(json).length;
         if (keyCount > 0) {
+          if (options.sortKey) {
+            json = sortDictByKey(json);
+          }
           html += '{<span class="json-dict">';
           for (var key in json) {
             if (Object.prototype.hasOwnProperty.call(json, key)) {
@@ -260,6 +279,7 @@
       withLinks: true,
       bigNumbers: false,
       wrapSimpleArray: true,
+      sortKey: false,
       indentUnit: 4,
       json2htmlVersion: 1
     }, options);
