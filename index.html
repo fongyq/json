@@ -283,6 +283,7 @@
             }
 
             function filterJsonByKey(json) {
+                var output = null;
                 if (json instanceof Array) {
                     output = [];
                     for (var i = 0; i < json.length; ++i) {
@@ -292,7 +293,7 @@
                         }
                     }
                 } else if (typeof json === "object") {
-                    var output = {};
+                    output = {};
                     for (var key in json) {
                         if (key.includes(searchKey)) {
                             output[key] = json[key];
