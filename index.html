@@ -255,6 +255,33 @@
             function isValidObj (obj) {
                 return obj != null && Object.keys(obj).length > 0;
             }
+            
+            function extractKey(json) {
+                var result = null;
+                if (json instanceof Array) {
+                    result = [];
+                    for (var i = 0; i < json.length; ++i) {
+                        var r = extractKey(json[i]);
+                        if (isValidObj(r)) {
+                            result.push(r);
+                        }
+                    }
+                } else if (typeof json === "object") {
+                    result = {};
+                    for (var key in json) {
+                        if (key.includes(searchKey)) {
+                            result[key] = json[key];
+                        } else if (JSON.stringify(json[key]).includes(searchKey)) {
+                            var r = extractKey(json[key]);
+                            if (isValidobj(r)) {
+                                result[key] = r;
+                            }
+                        }
+                    }
+                }
+                return result;
+            }
+            
             var option = {
                 collapsed: false, 
                 withQuotes: true, 
