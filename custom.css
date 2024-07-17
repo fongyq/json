@@ -24,7 +24,7 @@ body {
     display: flex;
     width: 100%;
     margin: 0 auto;
-    height: 85vh;
+    height: 84vh;
 }
 .editor {
     flex: 1;
@@ -243,7 +243,7 @@ input[type="text"] {
     border-bottom: 2px solid rgba(39, 64, 101, 0.7);
     background: transparent;
     width: 20rem;
-    height: 1.8rem;
+    height: 1.6rem;
     color: rgb(180,20,20);
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
     font-size: 1.2rem;
@@ -252,5 +252,5 @@ input[type="text"] {
 }
 input[type="text"]:focus {
     outline: none;
-    border-bottom: 2px solid rgb(5,93,175);
+    border-bottom: 2px solid rgb(180,20,20);
 }
