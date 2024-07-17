@@ -281,6 +281,25 @@
                 }
                 return result;
             }
+
+            function filterJsonByKey(json, output) {
+                if (json instanceof Array) {
+                    for (var i = 0; i < json.length; ++i) {
+                        filterJsonByKey(json[i], output);
+                    }
+                } else if (typeof json === "object") {
+                    for (var key in json) {
+                        if (key.includes(searchKey)) {
+                            output[key] = json[key];
+                        } else if (JSON.stringify(json[key]).includes(searchKey)) {
+                            var result = extractKey(json[key]);
+                            if (isValidobj(result)) {
+                                output[key] = result;
+                            }
+                        }
+                    }
+                }
+            }
             
             var option = {
                 collapsed: false, 
@@ -301,6 +320,11 @@
                     }
                     try {
                         var json = eval('(' + text + ')');
+                        if (searchKey.length > 0) {
+                            var newJson = {};
+                            filterJsonByKey(json, newJson);
+                            json = newJson;
+                        }
                         $('#view').jsonViewer(json, option);
                     } catch (e) {
                         reportError(e);
