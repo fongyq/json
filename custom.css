@@ -77,7 +77,6 @@ body {
     color: #333;
     border-radius: 0.5rem;
     background-color: rgba(223, 239, 243, 0.2); 
-    border: 1px solid #ccc; 
     margin-left: 0.5%;
     margin-right: 0.5%;
     border: 2px solid rgba(39, 64, 101, 0.7);
@@ -241,7 +240,7 @@ label:hover {
 }
 input[type="text"] {
     border: none;
-    border-bottom: 1px dashed black;
+    border-bottom: 2px solid rgba(39, 64, 101, 0.7);
     background: transparent;
     width: 20rem;
     height: 1.8rem;
@@ -253,5 +252,5 @@ input[type="text"] {
 }
 input[type="text"]:focus {
     outline: none;
-    border-bottom: 1px dashed rgb(5,93,175);
+    border-bottom: 2px dashed rgb(5,93,175);
 }
