@@ -186,6 +186,9 @@
             </div>
 
         </div>
+        <div class="input-container">
+            <input type="text" id="inputKey" oninput="findKey(event)" placeholder="find key">
+        </div>
         <script>
             var viewer = document.getElementById("view");
             var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -243,6 +246,14 @@
                     str2JsonFlag = false;
                 }
                 render();
+            }
+            var searchKey = "";
+            function findKey(event) {
+                searchKey = event.target.value;
+                render();
+            }
+            function isValidObj (obj) {
+                return obj != null && Object.keys(obj).length > 0;
             }
             var option = {
                 collapsed: false, 
