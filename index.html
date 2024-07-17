@@ -282,12 +282,17 @@
                 return result;
             }
 
-            function filterJsonByKey(json, output) {
+            function filterJsonByKey(json) {
                 if (json instanceof Array) {
+                    output = [];
                     for (var i = 0; i < json.length; ++i) {
-                        filterJsonByKey(json[i], output);
+                        var o = filterJsonByKey(json[i]);
+                        if (isValidObj(o)) {
+                            output.push(o);
+                        }
                     }
                 } else if (typeof json === "object") {
+                    var output = {};
                     for (var key in json) {
                         if (key.includes(searchKey)) {
                             output[key] = json[key];
@@ -299,6 +304,7 @@
                         }
                     }
                 }
+                return output;
             }
             
             var option = {
@@ -321,9 +327,7 @@
                     try {
                         var json = eval('(' + text + ')');
                         if (searchKey.length > 0) {
-                            var newJson = {};
-                            filterJsonByKey(json, newJson);
-                            json = newJson;
+                            json = filterJsonByKey(json);
                         }
                         $('#view').jsonViewer(json, option);
                     } catch (e) {
