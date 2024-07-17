@@ -252,5 +252,5 @@ input[type="text"] {
 }
 input[type="text"]:focus {
     outline: none;
-    border-bottom: 2px dashed rgb(5,93,175);
+    border-bottom: 2px solid rgb(5,93,175);
 }
