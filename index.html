@@ -273,7 +273,7 @@
                             result[key] = json[key];
                         } else if (JSON.stringify(json[key]).includes(searchKey)) {
                             var r = extractKey(json[key]);
-                            if (isValidobj(r)) {
+                            if (isValidObj(r)) {
                                 result[key] = r;
                             }
                         }
@@ -293,7 +293,7 @@
                             output[key] = json[key];
                         } else if (JSON.stringify(json[key]).includes(searchKey)) {
                             var result = extractKey(json[key]);
-                            if (isValidobj(result)) {
+                            if (isValidObj(result)) {
                                 output[key] = result;
                             }
                         }
