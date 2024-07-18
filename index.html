@@ -139,13 +139,12 @@
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
-            <button class="button" id="paste" title="粘贴剪切板的文本到输入框">Paste</button>
-            <button class="button" id="copy" style="width: 4rem" data-clipboard-target="#view" title="复制格式化json">Copy</button>
-            <button onclick="clearText()" class="button" style="width: 4.5rem" title="清空文本框">Clear</button>
             <label title="类对象或Map类型的字符串转json" class="check-box">
                 <input type="checkbox" id="check-str2json" onclick="checkStr2Json(this)">Str2Json</label>
             <label title="按key排序" class="check-box">
                 <input type="checkbox" id="check-sortkey" onclick="checkSortKey(this)">SortKey</label>
+            <label title="显示数组下标" class="check-box">
+                <input type="checkbox" id="check-showidx" onclick="checkShowIdx(this)">ShowIdx</label>
             <label title="简单类型数组换行" class="check-box">
                 <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray</label>
             <label title="长行自动换行" class="check-box">
@@ -163,11 +162,11 @@
     "description": "https://en.wikipedia.org/wiki/Doughnut",
     "price": 2.55,
     "available": {
-        store: 42,
+        store: null,
         warehouse: true
     },
     "toppings": [
-        { "id": 5001, "type": null },
+        { "id": 5001, "type": "None" },
         { "id": 5002, "type": "Glazed" },
         { "id": 5005, "type": "Sugar" },
         { "id": 5003, "type": "Chocolate" },
@@ -184,7 +183,13 @@
             <div class="viewer" id="text2">
                 <div class="view-text" id="view" name="view" oninput="render()"></div>
             </div>
-
+            <div id="button-list">
+                <ul>
+                    <li><button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button></li>
+                    <li><button class="button fa-solid fa-copy fa-2x" id="copy" data-clipboard-target="#view" title="复制格式化json"></button></li>
+                    <li><button class="button fa-solid fa-broom fa-2x" onclick="clearText()" title="清空文本框"></button></li>
+                </ul>
+            </div>
         </div>
         <div class="input-container">
             <input type="text" id="inputKey" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
@@ -314,6 +319,7 @@
                 withLinks: false,
                 wrapSimpleArray: true,
                 sortKey: false,
+                showIdx: false,
                 indentUnit: 4,
                 json2htmlVersion: 1
             };
@@ -365,6 +371,14 @@
                     option.sortKey = true;
                 } else {
                     option.sortKey = false;
+                }
+                render();
+            }
+            function checkShowIdx(obj) {
+                if (obj.checked) {
+                    option.showIdx = true;
+                } else {
+                    option.showIdx = false;
                 }
                 render();
             }

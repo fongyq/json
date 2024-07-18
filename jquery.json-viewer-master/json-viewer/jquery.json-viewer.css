@@ -36,6 +36,12 @@ ul.json-dict, ol.json-array {
   font-weight: bold;
   margin: 0;
 }
+.json-idx {
+  color: rgb(220, 241, 239);
+  border-radius: 3px;
+  background-color: rgba(31, 110, 129, 0.7);
+  margin: 0 2px;
+}
 
 /* Toggle button */
 a.json-toggle {

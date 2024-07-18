@@ -127,6 +127,9 @@
             if (isCollapsable(json[i])) {
               html += '<a href class="json-toggle"></a>';
             }
+            if (options.showIdx) {
+              html += '<span class="json-idx">' + i + '</span>';
+            }
             html += json2html(json[i], options);
             // Add comma if item is not last
             if (i < json.length - 1) {
@@ -218,6 +221,9 @@
           html += '[<span class="json-array">';
           for (var i = 0; i < json.length; ++i) {
             html += '<p>' + indentUnit + indent;
+            if (options.showIdx) {
+              html += '<span class="json-idx">' + i + '</span>';
+            }
             html += json2htmlV2(json[i], options, indent + indentUnit);
             // Add comma if item is not last
             if (i < json.length - 1) {
@@ -280,6 +286,7 @@
       bigNumbers: false,
       wrapSimpleArray: true,
       sortKey: false,
+      showIdx: false,
       indentUnit: 4,
       json2htmlVersion: 1
     }, options);
