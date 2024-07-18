@@ -254,3 +254,18 @@ input[type="text"]:focus {
     outline: none;
     border-bottom: 2px solid rgb(180,20,20);
 }
+
+#button-list ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    margin: 5vh 10px 5vh 0; 
+    list-style: none;
+    height: 70vh;
+}
+#button-list li {
+    list-style-type: none;
+}
