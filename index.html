@@ -186,10 +186,22 @@
             </div>
             <div id="button-list">
                 <ul>
-                    <li><button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button></li>
-                    <li><button class="button fa-solid fa-copy fa-2x" id="copy" data-clipboard-target="#view" title="复制格式化json"></button></li>
-                    <li><button class="button fa-solid fa-compress fa-2x" onclick="minifyJson()" title="压缩json到一行"></button></li>
-                    <li><button class="button fa-solid fa-broom fa-2x" onclick="clearText()" title="清空文本框"></button></li>
+                    <li>
+                        <button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button>
+                        <div class="icon-name">Paste</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-copy fa-2x" id="copy" data-clipboard-target="#view" title="复制格式化json"></button>
+                        <div class="icon-name">Copy</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-compress fa-2x" onclick="minifyJson()" title="压缩json到一行"></button>
+                        <div class="icon-name">Minify</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-broom fa-2x" onclick="clearText()" title="清空文本框"></button>
+                        <div class="icon-name">Clear</div>
+                    </li>
                 </ul>
             </div>
         </div>
