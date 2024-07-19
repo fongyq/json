@@ -180,6 +180,7 @@
 }
                 </textarea>
             </div>
+            <div class="resizer fa-solid fa-ellipsis-vertical fa-2x" id="resizer"></div>
             <div class="viewer" id="text2">
                 <div class="view-text" id="view" name="view" oninput="render()"></div>
             </div>
@@ -187,6 +188,7 @@
                 <ul>
                     <li><button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button></li>
                     <li><button class="button fa-solid fa-copy fa-2x" id="copy" data-clipboard-target="#view" title="复制格式化json"></button></li>
+                    <li><button class="button fa-solid fa-compress fa-2x" onclick=minifyJson()" title="压缩json到一行"></button></li>
                     <li><button class="button fa-solid fa-broom fa-2x" onclick="clearText()" title="清空文本框"></button></li>
                 </ul>
             </div>
@@ -321,7 +323,8 @@
                 sortKey: false,
                 showIdx: false,
                 indentUnit: 4,
-                json2htmlVersion: 1
+                json2htmlVersion: 1,
+                compress: false
             };
             function render() {
                 var text = editor.getDoc().getValue("\n");
@@ -418,6 +421,11 @@
                 viewer.style.wordWrap = "break-word";
                 viewer.style.overflowWrap = "break-word";
             }
+            function minifyJson() {
+                option.compress = !option.compress;
+                option.jason2htmlVersion = 2;
+                render();
+            }
             function clearText() {
                 editor.setValue("");
                 render();
@@ -498,6 +506,29 @@
                     popElement("粘贴完成", "text1", "center", 500);
                 }
             );
+            // resize 
+            var startX; var startWidth1; var startWidth2;
+            const resizer = document.getElementById('resizer');
+            const text1 = resizer.previousElementSibling;
+            const text2 = resizer.nextElementSibling;
+            resizer.addEventListener('mousedown', function (e) {
+                startX = e.clientX;
+                startWidth1 = text1.offsetWidth;
+                startWidth2 = text2.offsetWidth;
+                document.documentElement.addEventListener('mousemove', resize, false); 
+                document.documentElement.addEventListener('mouseup', stopResize, false);
+            });
+            function resize(e) {
+                const delta = e.client - startX;
+                const newWidth1 = startWidth1 + delta;
+                const newWidth2 = startWidth2 - delta;
+                text1.style.width = newWidth1 + 'px':
+                text2.style.width = newWidth2 + 'px';
+            }
+            function stopResize() {
+                document.documentElement.removeEventListener('mousemove', resize, false); 
+                document.documentElement.removeEventListener('mouseup', stopResize, false);
+            }
         </script>
     </body>
 </html>
