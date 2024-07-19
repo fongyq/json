@@ -55,22 +55,26 @@
     }
     return true;
   }
-  function formatSimpleArray (a) {
+  function formatSimpleArray (a, showIdx) {
     if (a.length === 0) return "[]";
     var sa = [];
     for (var i = 0; i < a.length; ++i) {
+      var idx = "" ;
+      if (showIdx) {
+        idx = '<span class="json-idx">' + i + '</span>';
+      }
       if (typeof a[i] === 'string') {
         // sa.push('"' + a[i] + '"');
-        sa.push('<span class="json-string">"' + htmlEscape(a[i]) + '"</span>')
+        sa.push(idx + '<span class="json-string">"' + htmlEscape(a[i]) + '"</span>')
       } else if (a[i] === null) {
         // sa.push("null");
-        sa.push('<span class="json-null">null</span>')
+        sa.push(idx + '<span class="json-null">null</span>')
       } else if (typeof a[i] === 'number' || typeof a[i] === 'bigint') {
-        sa.push('<span class="json-literal">' + a[i] + '</span>');
+        sa.push(idx + '<span class="json-literal">' + a[i] + '</span>');
       } else if (typeof a[i] === 'boolean') {
-        sa.push('<span class="json-bool">' + a[i] + '</span>');
+        sa.push(idx + '<span class="json-bool">' + a[i] + '</span>');
       } else {
-        sa.push(a[i]);
+        sa.push(idx + a[i]);
       }
     }
     return "[" + sa.join(",") + "]";
@@ -118,7 +122,7 @@
     } else if (json instanceof Array) {
       if (json.length > 0) {
         if (!options.wrapSimpleArray && checkSimpleArray(json)) {
-            html += formatSimpleArray(json);
+            html += formatSimpleArray(json, options.showIdx);
         } else {
           html += '[<ol class="json-array">';
           for (var i = 0; i < json.length; ++i) {
@@ -216,7 +220,7 @@
     } else if (json instanceof Array) {
       if (json.length > 0) {
         if (!options.wrapSimpleArray && checkSimpleArray(json)) {
-            html += formatSimpleArray(json);
+            html += formatSimpleArray(json, options.showIdx);
         } else {
           html += '[<span class="json-array">';
           for (var i = 0; i < json.length; ++i) {
