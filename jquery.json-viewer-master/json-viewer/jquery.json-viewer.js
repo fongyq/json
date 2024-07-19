@@ -288,7 +288,8 @@
       sortKey: false,
       showIdx: false,
       indentUnit: 4,
-      json2htmlVersion: 1
+      json2htmlVersion: 1,
+      compress: false
     }, options);
 
     if (options.indentUnit === 2) {
@@ -340,6 +341,12 @@
     } else {
       return this.each(function() {
         var html = json2htmlV2(json, options, "");
+        if (options.compress) {
+            html = html.replace(/&nbsp;/g, "")
+              .replace(/: /g, ":")
+              .replace(/<p>/g, "‹span>")
+              .replace(/<\/p>/g, "</span>");
+        }
         $(this).html(html);
         $(this).addClass('json-document');
       });
