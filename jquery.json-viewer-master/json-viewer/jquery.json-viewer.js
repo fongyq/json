@@ -344,7 +344,7 @@
         if (options.compress) {
             html = html.replace(/&nbsp;/g, "")
               .replace(/: /g, ":")
-              .replace(/<p>/g, "‹span>")
+              .replace(/<p>/g, "<span>")
               .replace(/<\/p>/g, "</span>");
         }
         $(this).html(html);
