@@ -266,8 +266,18 @@ input[type="text"]:focus {
     padding: 0;
     margin: 5vh 10px; 
     list-style: none;
-    height: 70vh;
+    height: 75vh;
 }
 #button-list li {
     list-style-type: none;
+    text-align: center;
+}
+
+.icon-name {
+    text-align: center;
+    font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin: 2px 0;
 }
