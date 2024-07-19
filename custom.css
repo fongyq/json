@@ -207,7 +207,7 @@ label:hover {
     overflow: scroll;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100vw!important;
     height: 100vh;
     margin: 0;
     padding: 0;
