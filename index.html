@@ -180,7 +180,7 @@
 }
                 </textarea>
             </div>
-            <div class="resizer fa-solid fa-ellipsis-vertical fa-2x" id="resizer"></div>
+            <div class="resizer fa-solid fa-ellipsis-vertical fa-1x" id="resizer"></div>
             <div class="viewer" id="text2">
                 <div class="view-text" id="view" name="view" oninput="render()"></div>
             </div>
@@ -423,7 +423,10 @@
             }
             function minifyJson() {
                 option.compress = !option.compress;
-                option.jason2htmlVersion = 2;
+                if (option.compress) {
+                    document.getElementById("view-version").value = 2;
+                    option.jason2htmlVersion = 2;
+                }
                 render();
             }
             function clearText() {
@@ -519,7 +522,7 @@
                 document.documentElement.addEventListener('mouseup', stopResize, false);
             });
             function resize(e) {
-                const delta = e.client - startX;
+                const delta = e.clientX - startX;
                 const newWidth1 = startWidth1 + delta;
                 const newWidth2 = startWidth2 - delta;
                 text1.style.width = newWidth1 + 'px';
