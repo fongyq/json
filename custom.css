@@ -44,11 +44,12 @@ body {
     padding: 0;
 }
 .viewer {
+    display: flex;
     overflow: auto;
     /* white-space: nowrap;
     word-wrap: normal;
     overflow-wrap: normal; */
-    width: 48%;
+    width: 47%;
     /* margin: 0 1%; */
     height: 100%;
     line-height: 1.67;
@@ -170,23 +171,7 @@ label:hover {
     border-radius: 5px;
     padding: 0.3rem 0.4rem;
 }
-#check-str2json {
-    vertical-align: middle;
-    accent-color: rgba(21, 54, 86, 0.2);
-}
-#check-sortkey {
-    vertical-align: middle;
-    accent-color: rgba(21, 54, 86, 0.2);
-}
-#check-showidx {
-    vertical-align: middle;
-    accent-color: rgba(21, 54, 86, 0.2);
-}
-#check-wrap {
-    vertical-align: middle;
-    accent-color: rgba(21, 54, 86, 0.2);
-}
-#check-simple-array-wrap {
+#check-str2json, #check-sortkey, #check-showidx, #check-lineno, #check-wrap, #check-simple-array-wrap {
     vertical-align: middle;
     accent-color: rgba(21, 54, 86, 0.2);
 }
@@ -280,4 +265,20 @@ input[type="text"]:focus {
     font-weight: bold;
     color: #333;
     margin: 2px 0;
+}
+
+.lineno-container {
+    overflow: visible;
+}
+.lineno {
+    display: none;
+    margin: 0;
+    padding: 1em 6px 0 3px;
+    font-size: 18px;
+    line-height: 1.67;
+    text-align: right;
+    font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
+    color: rgb(153, 153, 153);
+    border: none;
+    background-color: rgb(247,247,247);
 }

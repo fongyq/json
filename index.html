@@ -96,6 +96,8 @@
                     <li>「Str2Json」把形如 A(a=hello,b=true,c=D(e=[null,null])) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
                     <br/>
                     <li>浮点数如果小数部分是 0，那么转换之后小数点会被丢失，变成整数。</li>
+                    <br/>
+                    <li>「LineNo」仅在「WrapOverflow」未被选中时生效。</li>
                 </span>
             </div>
             <select id="code-mode" class="selector" style="width: 7.5rem;" onchange="setLangMode(event)" title="编辑器语言">
@@ -145,6 +147,8 @@
                 <input type="checkbox" id="check-sortkey" onclick="checkSortKey(this)">SortKey</label>
             <label title="显示数组下标" class="check-box">
                 <input type="checkbox" id="check-showidx" onclick="checkShowIdx(this)">ShowIdx</label>
+            <label title="显示行号" class="check-box">
+                <input type="checkbox" id="check-lineno" onclick="checkLineNo(this)">LineNo</label>
             <label title="简单类型数组换行" class="check-box">
                 <input type="checkbox" id="check-simple-array-wrap" onclick="checkSimpleArrayWrap(this)" checked>WrapArray</label>
             <label title="长行自动换行" class="check-box">
@@ -182,6 +186,9 @@
             </div>
             <div class="resizer fa-solid fa-ellipsis-vertical fa-1x" id="resizer"></div>
             <div class="viewer" id="text2">
+                <div class="lineno-container">
+                    <div class="lineno" id="lineNo"></div>
+                </div>
                 <div class="view-text" id="view" name="view" oninput="render()"></div>
             </div>
             <div id="button-list">
@@ -209,8 +216,9 @@
             <input type="text" id="inputKey" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
         </div>
         <script>
-            var viewer = document.getElementById("view");
-            var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+            const viewer = document.getElementById("view");
+            const lineno = document.getElementById("lineNo");
+            const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
                 lineWrapping: true,
                 scrollbarStyle: "overlay",
@@ -254,18 +262,11 @@
             function setFontSize(event) {
                 var fs = event.target.value;
                 viewer.style.fontSize = fs + "px";
+                lineno.style.fontSize = fs + "px";
                 editor.getWrapperElement().style["font-size"] = fs + "px";
                 editor.refresh();
             }
-            var str2JsonFlag = false;
-            function checkStr2Json(obj) {
-                if (obj.checked) {
-                    str2JsonFlag = true;
-                } else {
-                    str2JsonFlag = false;
-                }
-                render();
-            }
+
             var searchKey = "";
             function findKey(event) {
                 searchKey = event.target.value;
@@ -274,7 +275,6 @@
             function isValidObj (obj) {
                 return obj != null && Object.keys(obj).length > 0;
             }
-            
             function extractKey(json) {
                 var result = null;
                 if (json instanceof Array) {
@@ -300,7 +300,6 @@
                 }
                 return result;
             }
-
             function filterJsonByKey(json) {
                 var output = null;
                 if (json instanceof Array) {
@@ -352,6 +351,9 @@
                             json = filterJsonByKey(json);
                         }
                         $('#view').jsonViewer(json, option);
+                        if (showLineNo) {
+                            addLineNo();
+                        }
                     } catch (e) {
                         reportError(e);
                     }
@@ -421,6 +423,9 @@
                     viewer.style.wordWrap = "break-word";
                     viewer.style.overflowWrap = "break-word";
                     editor.setOption("lineWrapping", true);
+                    var ln = document.getElementById("check-lineno");
+                    ln.checked = false;
+                    checkLineNo(ln);
                 } else {
                     viewer.style.whiteSpace = "nowrap";
                     viewer.style.wordWrap = "normal";
@@ -432,6 +437,37 @@
                 viewer.style.whiteSpace = "normal";
                 viewer.style.wordWrap = "break-word";
                 viewer.style.overflowWrap = "break-word";
+            }
+            var str2JsonFlag = false;
+            function checkStr2Json(obj) {
+                if (obj.checked) {
+                    str2JsonFlag = true;
+                } else {
+                    str2JsonFlag = false;
+                }
+                render();
+            }
+            var showLineNo = false;
+            function checkLineNo(obj) {
+                if (obj.checked) {
+                    var wrapper = document.getElementById("check-wrap");
+                    wrapper.checked = false;
+                    checkWrap(wrapper);
+                    showLineNo = true;
+                } else {
+                    lineno.style.display = "none";
+                    showLineNo = false;
+                }
+                render();
+            }
+            function addLineNo() {
+                const n = viewer.innerText.split("\n").filter(line => line.trim()).length;
+                lineno.innerHTML = "";
+                for (var i = 1; i <= n; ++i) {
+                    lineno.innerHTML += i + "<br/>";
+                }
+                lineno.style.width = i.toString().length * 13 + "px";
+                lineno.style.display = "block";
             }
             function minifyJson() {
                 option.compress = !option.compress;
@@ -447,15 +483,12 @@
             }
             var isOnView = false;
             document.getElementById("text1").addEventListener("mouseenter", function(){
-                console.log("enter text1");
                 isOnView = false;
             });
             document.getElementById("text2").addEventListener("mouseenter", function(){
-                console.log("enter text2");
                 isOnView = true;
             });
             viewer.addEventListener("mouseenter", function(){
-                console.log("enter view");
                 isOnView = true;
             });
             document.addEventListener("keydown", function(event) {
@@ -486,7 +519,7 @@
                 event.clipboardData.setData('text/plain', toPaste);
                 event.preventDefault();
             });
-            var clipboard = new ClipboardJS('.button');
+            const clipboard = new ClipboardJS('.button');
             function popElement(info, boxName, pos, timeout) {
                 var box = document.getElementById(boxName);
                 var boxRect = box.getBoundingClientRect();
