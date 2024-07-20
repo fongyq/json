@@ -180,6 +180,7 @@ label:hover {
     border-radius: 0.5rem;
     background-color: rgba(223, 239, 243, 0.2); 
     border: none;
+    padding: 10px;
 }
 .button:hover {
     box-shadow: 0px 0px 3px 3px #0c5986;
