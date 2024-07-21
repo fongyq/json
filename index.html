@@ -78,27 +78,19 @@
         
     </head>
     <body>
-        <div style="text-align:center;padding-top:10px;">
+        <div class="function-container">
             <div class="tooltip fa-regular fa-question-circle">
-                <span class="tooltiptext">
+                <ul class="tooltiptext">
                     <li>光标位于文本框内，F11 / Ctrl-B 全屏，Esc 退出全屏。</li>
-                    <br/>
                     <li>光标位于左侧输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
-                    <br/>
                     <li>「WrapArray」只对包含简单类型元素（数值、布尔值、字符串、null）的数组换行。</li>
-                    <br/>
                     <li>「Html-li」模式使用&lt;li&gt;元素的 padding 作为缩进，拷贝文本会失去缩进；「Html-p」模式使用空格作为缩进（默认四个空格），拷贝文本可以保持缩进，但是长行自动换行时会失去缩进。</li>
-                    <br/>
                     <li>左侧输入框本身自带 json 简单高亮和折叠功能，推荐使用「JavaScript」+「Mdn-like」。</li>
-                    <br/>
                     <li>可以在浏览器的网站权限设置中添加剪切板读权限，避免每次粘贴都需要询问。</li>
-                    <br/>
                     <li>「Str2Json」把形如 A(a=hello,b=true,c=D(e=[null,null])) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
-                    <br/>
                     <li>浮点数如果小数部分是 0，那么转换之后小数点会被丢失，变成整数。</li>
-                    <br/>
                     <li>「LineNo」仅在「WrapOverflow」未被选中时生效。</li>
-                </span>
+                </ul>
             </div>
             <select id="code-mode" class="selector" style="width: 7.5rem;" onchange="setLangMode(event)" title="编辑器语言">
                 <option value="text/plain" selected>Plain</option>
@@ -155,7 +147,6 @@
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
         </div>
         <div class="popup" id="popup-info"></div>
-        <br>
         <div class="editor-container">
             <div class="editor" id="text1">
                 <textarea id="code" name="code">
