@@ -20,6 +20,11 @@ body {
     background-color: rgba(127, 127, 127, 0.2);
 }
 
+.function-container {
+    text-align: center;
+    padding: 10px 0 16px;
+}
+
 .editor-container {
     display: flex;
     width: 100%;
@@ -130,6 +135,14 @@ select:hover {
 .tooltip-inner {
     white-space: pre-line;
 }
+.tooltip ul {
+    margin: 20px;
+}
+.tooltip li {
+    margin: 10px 20px;
+    line-height: 1.5rem;
+}
+
 
 .back-to-top {
     position: fixed;
@@ -274,6 +287,8 @@ input[type="text"]:focus {
 }
 .lineno {
     display: none;
+    user-select: none;
+    cursor: default;
     margin: 0;
     padding: 1em 6px 0 3px;
     font-size: 18px;
