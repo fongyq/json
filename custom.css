@@ -42,6 +42,7 @@ body {
     cursor: col-resize;
     background-color: transparent;
     padding: 0;
+    color: grey;
 }
 .viewer {
     display: flex;
