@@ -33,7 +33,7 @@ body {
 }
 .editor {
     width: 48%;
-    /* margin: 0 1%; */
+    margin: 0 0 0 1%; 
     height: 100%;
     border-radius: 5px;
     border: 2px solid rgba(39, 64, 101, 0.3);
