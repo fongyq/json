@@ -371,8 +371,8 @@
                 }
             }
             window.onerror = function(message, source, lineno, colno, error) {
-                viewer.innerHTML = error;
-                viewer.innerHTML += "<br> Line: " + lineno + ", Column: " + colno;
+                viewer.innerHTML = "<pre class='error'>" + error + "</pre>";
+                viewer.innerHTML += "<pre class='error'>" + "Line: " + lineno + ", Column: " + colno + "</pre>";
             };
             function checkSortKey(obj) {
                 if (obj.checked) {
