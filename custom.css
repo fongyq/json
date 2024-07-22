@@ -299,3 +299,11 @@ input[type="text"]:focus {
     border: none;
     background-color: rgb(247,247,247);
 }
+
+.error {
+    font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(180, 20,20);
+    white-space: pre-wrap;
+}
