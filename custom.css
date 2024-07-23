@@ -50,7 +50,6 @@ body {
     color: grey;
 }
 .viewer {
-    display: flex;
     overflow: auto;
     /* white-space: nowrap;
     word-wrap: normal;
@@ -306,4 +305,15 @@ input[type="text"]:focus {
     font-weight: bold;
     color: rgb(180, 20,20);
     white-space: pre-wrap;
+}
+
+.text-wrap {
+    white-space: normal; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+}
+.text-nowrap {
+    hite-space: normal; 
+    word-wrap: normal;
+    overflow-wrap: normal;
 }
