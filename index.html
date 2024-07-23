@@ -207,6 +207,7 @@
             <input type="text" id="inputKey" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
         </div>
         <script>
+            const area2 = document.getElementById("text2");
             const viewer = document.getElementById("view");
             const lineno = document.getElementById("lineNo");
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -410,24 +411,22 @@
             }
             function checkWrap(obj) {
                 if (obj.checked) {
-                    viewer.style.whiteSpace = "normal";
-                    viewer.style.wordWrap = "break-word";
-                    viewer.style.overflowWrap = "break-word";
+                    area2.style.display = "block";
+                    viewer.classList.add("text-wrap");
+                    viewer.classList.remove("text-nowrap");
                     editor.setOption("lineWrapping", true);
                     var ln = document.getElementById("check-lineno");
                     ln.checked = false;
                     checkLineNo(ln);
                 } else {
-                    viewer.style.whiteSpace = "nowrap";
-                    viewer.style.wordWrap = "normal";
-                    viewer.style.overflowWrap = "normal";
+                    viewer.classList.add("text-nowrap");
+                    viewer.classList.remove("text-wrap");
                     editor.setOption("lineWrapping", false);
                 }
             }
             function forceWrap() {
-                viewer.style.whiteSpace = "normal";
-                viewer.style.wordWrap = "break-word";
-                viewer.style.overflowWrap = "break-word";
+                viewer.classList.add("text-wrap");
+                    viewer.classList.remove("text-nowrap");
             }
             var str2JsonFlag = false;
             function checkStr2Json(obj) {
@@ -445,9 +444,11 @@
                     wrapper.checked = false;
                     checkWrap(wrapper);
                     showLineNo = true;
+                    area2.style.display = "flex";
                 } else {
                     lineno.style.display = "none";
                     showLineNo = false;
+                    area2.style.display = "block";
                 }
                 render();
             }
