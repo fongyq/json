@@ -412,21 +412,21 @@
             function checkWrap(obj) {
                 if (obj.checked) {
                     area2.style.display = "block";
-                    viewer.classList.add("text-wrap");
                     viewer.classList.remove("text-nowrap");
+                    viewer.classList.add("text-wrap");
                     editor.setOption("lineWrapping", true);
                     var ln = document.getElementById("check-lineno");
                     ln.checked = false;
                     checkLineNo(ln);
                 } else {
-                    viewer.classList.add("text-nowrap");
                     viewer.classList.remove("text-wrap");
+                    viewer.classList.add("text-nowrap");
                     editor.setOption("lineWrapping", false);
                 }
             }
             function forceWrap() {
+                viewer.classList.remove("text-nowrap");
                 viewer.classList.add("text-wrap");
-                    viewer.classList.remove("text-nowrap");
             }
             var str2JsonFlag = false;
             function checkStr2Json(obj) {
