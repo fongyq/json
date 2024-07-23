@@ -207,6 +207,7 @@
             <input type="text" id="inputKey" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
         </div>
         <script>
+            const area1 = document.getElementById("text1");
             const area2 = document.getElementById("text2");
             const viewer = document.getElementById("view");
             const lineno = document.getElementById("lineNo");
@@ -238,10 +239,10 @@
                 render();
             });
             editor.on('focus', () => {
-                document.getElementById("text1").style.border = "2px solid rgba(11, 58, 77, 0.8)";
+                area1.style.border = "2px solid rgba(11, 58, 77, 0.8)";
             });
             editor.on('blur', () => {
-                document.getElementById("text1").style.border = "2px solid rgba(39, 64, 101, 0.3)";
+                area1.style.border = "2px solid rgba(39, 64, 101, 0.3)";
             });
             function setLangMode(event) {
                 var mode = event.target.value;
@@ -475,10 +476,10 @@
                 render();
             }
             var isOnView = false;
-            document.getElementById("text1").addEventListener("mouseenter", function(){
+            area1.addEventListener("mouseenter", function(){
                 isOnView = false;
             });
-            document.getElementById("text2").addEventListener("mouseenter", function(){
+            area2.addEventListener("mouseenter", function(){
                 isOnView = true;
             });
             viewer.addEventListener("mouseenter", function(){
