@@ -133,6 +133,10 @@
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
+            <button class="button" id="lockButton" onclick="toggleLock()" title="编辑json">
+                <i class="fas fa-lock fa-1x" id="lockIcon"></i>
+                Edit
+            </button> 
             <label title="类对象或Map类型的字符串转json" class="check-box">
                 <input type="checkbox" id="check-str2json" onclick="checkStr2Json(this)">Str2Json</label>
             <label title="按key排序" class="check-box">
@@ -571,6 +575,21 @@
                 document.documentElement.removeEventListener('mousemove', resize, false); 
                 document.documentElement.removeEventListener('mouseup', stopResize, false);
             }
+
+            var isLocked = true;  
+            function toggleLock() {  
+                isLocked = !isLocked;
+                const lockIcon = document.getElementById('lockIcon');  
+                if (!isLocked) {  
+                    lockIcon.classList.remove('fa-lock');  
+                    lockIcon.classList.add('fa-unlock-keyhole');  
+                    area2.contentEditable = "true";
+                } else {  
+                    lockIcon.classList.remove('fa-unlock-keyhole');  
+                    lockIcon.classList.add('fa-lock');  
+                    area2.contentEditable = "false";
+                }  
+            }  
         </script>
     </body>
 </html>
