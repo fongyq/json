@@ -13,27 +13,21 @@ ul.json-dict, ol.json-array {
 }
 .json-key {
   color: rgb(180, 20, 20);
-  font-weight: bold;
 }
 .json-bool {
   color: rgb(204, 120, 50);
-  font-weight: bold;
 }
 .json-null {
   color: rgb(124, 45, 235);
-  font-weight: bold;
 }
 .json-string {
   color: #0B7500;
-  font-weight: bold;
 }
 .json-literal {
   color: #226bb5;
-  font-weight: bold;
 }
 .json-url {
   color: rgb(169, 122, 42);
-  font-weight: bold;
   margin: 0;
 }
 .json-idx {
@@ -42,6 +36,7 @@ ul.json-dict, ol.json-array {
   background-color: rgba(31, 110, 129, 0.7);
   margin: 0 2px;
   padding: 0 2px;
+  font-weight: normal;
 }
 .json-idx:hover {
   background-color: orange;
