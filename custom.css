@@ -64,6 +64,8 @@ body {
 }
 
 .view-text {
+    color: rgb(100, 100, 100);
+    font-weight: bold;
     font-size: 18px;
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
 }
