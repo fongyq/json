@@ -459,10 +459,11 @@
             }
             function addLineNo() {
                 const n = viewer.innerText.split("\n").filter(line => line.trim()).length;
-                lineno.innerHTML = "";
+                var h = "";
                 for (var i = 1; i <= n; ++i) {
-                    lineno.innerHTML += i + "<br/>";
+                    h += i + "<br/>";
                 }
+                lineno.innerHTML = h;
                 lineno.style.width = i.toString().length * 13 + "px";
                 lineno.style.height = viewer.scrollHeight + "px";
                 lineno.style.display = "block";
