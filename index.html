@@ -469,12 +469,11 @@
                 lineno.style.display = "block";
             }
             function minifyJson() {
-                option.compress = !option.compress;
-                if (option.compress) {
-                    document.getElementById("view-version").value = 2;
-                    option.json2htmlVersion = 2;
-                }
+                option.compress = true;
+                document.getElementById("view-version").value = 2;
+                option.json2htmlVersion = 2;
                 render();
+                option.compress = false;
             }
             function clearText() {
                 editor.setValue("");
