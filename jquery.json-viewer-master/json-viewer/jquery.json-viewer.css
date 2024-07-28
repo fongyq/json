@@ -23,7 +23,7 @@ ul.json-dict, ol.json-array {
 .json-string {
   color: #0B7500;
 }
-.json-literal {
+.json-number {
   color: #226bb5;
 }
 .json-url {
