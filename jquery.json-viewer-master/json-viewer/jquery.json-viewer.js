@@ -70,7 +70,7 @@
         // sa.push("null");
         sa.push(idx + '<span class="json-null">null</span>')
       } else if (typeof a[i] === 'number' || typeof a[i] === 'bigint') {
-        sa.push(idx + '<span class="json-literal">' + a[i] + '</span>');
+        sa.push(idx + '<span class="json-number">' + a[i] + '</span>');
       } else if (typeof a[i] === 'boolean') {
         sa.push(idx + '<span class="json-bool">' + a[i] + '</span>');
       } else {
@@ -114,7 +114,7 @@
         html += '<span class="json-string">"' + json + '"</span>';
       }
     } else if (typeof json === 'number' || typeof json === 'bigint') {
-      html += '<span class="json-literal">' + json + '</span>';
+      html += '<span class="json-number">' + json + '</span>';
     } else if (typeof json === 'boolean') {
       html += '<span class="json-bool">' + json + '</span>';
     } else if (json === null) {
@@ -151,7 +151,7 @@
       // json.isLosslessNumber: package lossless-json
       // json.toExponential(): packages bignumber.js, big.js, decimal.js, decimal.js-light, others?
       if (options.bigNumbers && (typeof json.toExponential === 'function' || json.isLosslessNumber)) {
-        html += '<span class="json-literal">' + json.toString() + '</span>';
+        html += '<span class="json-number">' + json.toString() + '</span>';
       } else {
         var keyCount = Object.keys(json).length;
         if (keyCount > 0) {
@@ -212,7 +212,7 @@
         html += '<span class="json-string">"' + json + '"</span>';
       }
     } else if (typeof json === 'number' || typeof json === 'bigint') {
-      html += '<span class="json-literal">' + json + '</span>';
+      html += '<span class="json-number">' + json + '</span>';
     } else if (typeof json === 'boolean') {
       html += '<span class="json-bool">' + json + '</span>';
     } else if (json === null) {
