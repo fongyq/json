@@ -70,6 +70,13 @@ body {
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
 }
 
+.bold-font {
+    font-weight: bold;
+}
+.normal-font {
+    font-weight: normal;
+}
+
 .CodeMirror{
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
     font-size: 18px;

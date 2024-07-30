@@ -189,16 +189,20 @@
             <div id="button-list">
                 <ul>
                     <li>
+                        <button class="button fa-solid fa-bold fa-2x" onclick="changeFontWeight()" title="字体加粗"></button>
+                        <div class="icon-name">Bold</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-compress fa-2x" onclick="minifyJson()" title="压缩json到一行"></button>
+                        <div class="icon-name">Minify</div>
+                    </li>
+                    <li>
                         <button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button>
                         <div class="icon-name">Paste</div>
                     </li>
                     <li>
                         <button class="button fa-solid fa-copy fa-2x" id="copy" data-clipboard-target="#view" title="复制格式化json"></button>
                         <div class="icon-name">Copy</div>
-                    </li>
-                    <li>
-                        <button class="button fa-solid fa-compress fa-2x" onclick="minifyJson()" title="压缩json到一行"></button>
-                        <div class="icon-name">Minify</div>
                     </li>
                     <li>
                         <button class="button fa-solid fa-broom fa-2x" onclick="clearText()" title="清空文本框"></button>
@@ -481,6 +485,17 @@
                 option.json2htmlVersion = 2;
                 render();
                 option.compress = false;
+            }
+            var isBoldFont = true;
+            function changeFontWeight() {
+                if (isBoldFont) {
+                    viewer.classList.remove('bold-font');
+                    viewer.classList.add('normal-font');
+                } else {
+                    viewer.classList.remove('normal-font');
+                    viewer.classList.add('bold-font');
+                }
+                isBoldFont = !isBoldFont;
             }
             function clearText() {
                 editor.setValue("");
