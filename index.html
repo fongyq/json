@@ -361,7 +361,11 @@
                     return "";
                 } else {
                     text = text.trim().replace(/\n/g, '')
-                            .replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
+                            // 占位符表示空字符
+                            .replace(/=([,)}]+)/g, '=@EMPTY@$1')
+                            // 占位符表示冒号，这里是为了处理一些超链接或者文件路径中的冒号
+                            .replace(/:/g, '@COLON@');
+                    text = text.replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
                             .replace(/\)/g, '}}')
                             .replace(/=/g, ':')
                             // key 和 value 加双引号
@@ -373,6 +377,9 @@
                             .replace(/"(\+?|-?)([0-9]+[.]?[0-9]*)"(?!:)/g, '$1$2')
                             // 去掉多余的双引号
                             .replace(/"{2,}/g, '"');
+                    // 占位符还原
+                    text = text.replace(/@EMPTY@/g, '')
+                            .replace(/@COLON@/g, ':');
                     return text;
                 }
             }
