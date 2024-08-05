@@ -134,8 +134,8 @@
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
-            <button class="button" id="lockButton" onclick="toggleLock()" title="编辑json">
-                <i class="fas fa-lock fa-1x" id="lockIcon"></i>
+            <button class="button" id="lock-button" onclick="toggleLock()" title="编辑json">
+                <i class="fas fa-lock fa-1x" id="lock-icon"></i>
                 Edit
             </button> 
             <label title="类对象或Map类型的字符串转json" class="check-box">
@@ -183,7 +183,7 @@
             <div class="resizer fa-solid fa-ellipsis-vertical fa-1x" id="resizer"></div>
             <div class="viewer" id="text2">
                 <div class="lineno-container">
-                    <div class="lineno" id="lineNo"></div>
+                    <div class="lineno" id="line-no"></div>
                 </div>
                 <div class="view-text" id="view" name="view" oninput="render()"></div>
             </div>
@@ -213,13 +213,13 @@
             </div>
         </div>
         <div class="input-container">
-            <input type="text" id="inputKey" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
+            <input type="text" id="input-key" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
         </div>
         <script>
             const area1 = document.getElementById("text1");
             const area2 = document.getElementById("text2");
             const viewer = document.getElementById("view");
-            const lineno = document.getElementById("lineNo");
+            const lineno = document.getElementById("line-no");
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
                 lineWrapping: true,
@@ -605,7 +605,7 @@
             var isLocked = true;  
             function toggleLock() {  
                 isLocked = !isLocked;
-                const lockIcon = document.getElementById('lockIcon');  
+                const lockIcon = document.getElementById('lock-icon');  
                 if (!isLocked) {  
                     lockIcon.classList.remove('fa-lock');  
                     lockIcon.classList.add('fa-unlock-keyhole');  

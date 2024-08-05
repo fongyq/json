@@ -325,7 +325,7 @@ input[type="text"]:focus {
     overflow-wrap: normal;
 }
 
-#lockButton {
+#lock-button {
     width: 4.3rem;
     height: 2rem;
     background-color: transparent;
