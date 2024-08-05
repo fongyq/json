@@ -130,7 +130,7 @@
                 <option value=1 selected>Html-li</option>
                 <option value=2>Html-p</option>
             </select>
-            <select id="view-indent" class="selector" style="width: 2.5rem;" onchange="setIndentUnit(event)" title="缩进单元">
+            <select id="view-indent" class="selector" style="width: 2.5rem; display: none;" onchange="setIndentUnit(event)" title="缩进单元">
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
@@ -427,6 +427,11 @@
             function setViewVersion(obj) {
                 var version = event.target.value;
                 option.json2htmlVersion = parseInt(version);
+                if (version == 2) {
+                    document.getElementById("view-indent").style.display = "inline-block";
+                } else {
+                    document.getElementById("view-indent").style.display = "none";
+                }
                 render();
             }
             function checkWrap(obj) {
