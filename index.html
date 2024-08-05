@@ -90,6 +90,7 @@
                     <li>「Str2Json」把形如 A(a=hello,b=true,c=D(e=[null,null])) 的类对象字符串或形如 {a=hello,b=A(c=0)} 的 Map 字符串转成 json。</li>
                     <li>浮点数如果小数部分是 0，那么转换之后小数点会被丢失，变成整数。</li>
                     <li>「LineNo」仅在「WrapOverflow」未被选中时生效。</li>
+                    <li>查找 key 支持正则表达式。</li>
                 </ul>
             </div>
             <select id="code-mode" class="selector" style="width: 7.5rem;" onchange="setLangMode(event)" title="编辑器语言">
@@ -273,6 +274,9 @@
                 searchKey = event.target.value;
                 render();
             }
+            function isMatch (src, tgt) {
+                return src.match(new RegExp(tgt));
+            }
             function isValidObj (obj) {
                 return obj != null && Object.keys(obj).length > 0;
             }
@@ -289,9 +293,9 @@
                 } else if (typeof json === "object") {
                     result = {};
                     for (var key in json) {
-                        if (key.includes(searchKey)) {
+                        if (isMatch(key, searchKey)) {
                             result[key] = json[key];
-                        } else if (JSON.stringify(json[key]).includes(searchKey)) {
+                        } else {
                             var r = extractKey(json[key]);
                             if (isValidObj(r)) {
                                 result[key] = r;
@@ -314,9 +318,9 @@
                 } else if (typeof json === "object") {
                     output = {};
                     for (var key in json) {
-                        if (key.includes(searchKey)) {
+                        if (isMatch(key, searchKey)) {
                             output[key] = json[key];
-                        } else if (JSON.stringify(json[key]).includes(searchKey)) {
+                        } else {
                             var result = extractKey(json[key]);
                             if (isValidObj(result)) {
                                 output[key] = result;
