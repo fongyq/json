@@ -371,6 +371,7 @@
                     text = text.trim().replace(/\n/g, '')
                             // 占位符表示空字符
                             .replace(/=([,)}]+)/g, '=@EMPTY@$1')
+                            .replace(/""/g, '@EMPTY@')
                             // 占位符表示冒号+//，这里是为了处理一些超链接或者文件路径中的冒号
                             .replace(/:\/\//g, '@PATH_COLON@');
                     text = text.replace(/([.a-zA-Z_0-9]+)\(/g, '{$1:{')
