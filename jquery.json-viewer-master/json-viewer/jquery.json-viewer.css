@@ -37,6 +37,7 @@ ul.json-dict, ol.json-array {
   margin: 0 2px;
   padding: 0 2px;
   font-weight: normal;
+  user-select: none;
 }
 .json-idx:hover {
   background-color: orange;
