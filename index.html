@@ -602,6 +602,8 @@
                 const newWidth2 = startWidth2 - delta;
                 text1.style.width = newWidth1 + 'px';
                 text2.style.width = newWidth2 + 'px';
+                // 触发 scrollbar
+                editor.refresh();
             }
             function stopResize() {
                 document.documentElement.removeEventListener('mousemove', resize, false); 
