@@ -491,9 +491,9 @@
             }
             function minifyJson() {
                 option.compress = true;
-                document.getElementById("view-version").value = 2;
-                option.json2htmlVersion = 2;
-                render();
+                const viewVersion = document.getElementById("view-version");
+                viewVersion.value = 2;
+                setViewVersion(viewVersion);
                 option.compress = false;
             }
             var isBoldFont = true;
