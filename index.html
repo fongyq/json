@@ -126,11 +126,11 @@
                 <option value=10>10px</option>
                 <option value=8 > 8px</option>
             </select>
-            <select id="view-version" class="selector" style="width: 6.5rem;" onchange="setViewVersion(event)" title="json2html版本">
+            <select id="view-version" class="selector" style="width: 6.5rem;" onchange="setViewVersion(this)" title="json2html版本">
                 <option value=1 selected>Html-li</option>
                 <option value=2>Html-p</option>
             </select>
-            <select id="view-indent" class="selector" style="width: 2.5rem; display: none;" onchange="setIndentUnit(event)" title="缩进单元">
+            <select id="view-indent" class="selector" style="width: 2.5rem; display: none;" onchange="setIndentUnit(this)" title="缩进单元">
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
@@ -421,12 +421,12 @@
                 render();
             }
             function setIndentUnit(obj) {
-                var unit = event.target.value;
+                var unit = obj.value;
                 option.indentUnit = parseInt(unit);
                 render();
             }
             function setViewVersion(obj) {
-                var version = event.target.value;
+                var version = obj.value;
                 option.json2htmlVersion = parseInt(version);
                 if (version == 2) {
                     document.getElementById("view-indent").style.display = "inline-block";
