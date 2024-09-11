@@ -38,7 +38,8 @@
       .replace(/>/g, '&gt;')
       .replace(/'/g, '&apos;')
       .replace(/"/g, '&quot;')
-      .replace(/ /g, '&nbsp;');
+      .replace(/ /g, '&nbsp;')
+      .replace(/\n/g, '\\n');
   }
 
   /**
