@@ -250,6 +250,8 @@ input[type="text"] {
     border: none;
     border-bottom: 2px solid rgba(39, 64, 101, 0.7);
     background: transparent;
+    min-width: 20rem;
+    max-width: 50rem;
     width: 20rem;
     height: 1.6rem;
     color: rgb(180,20,20);
