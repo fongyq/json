@@ -213,7 +213,7 @@
             </div>
         </div>
         <div class="input-container">
-            <input type="text" id="input-key" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
+            <input type="text" id="input-key" oninput="findKey(this)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
         </div>
         <script>
             const area1 = document.getElementById("text1");
@@ -270,8 +270,9 @@
             }
 
             var searchKey = "";
-            function findKey(event) {
-                searchKey = event.target.value;
+            function findKey(ele) {
+                searchKey = ele.value;
+                ele.style.width = (ele.value.length + 10) + "ch";
                 render();
             }
             function isMatch (src, tgt) {
