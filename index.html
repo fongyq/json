@@ -387,7 +387,7 @@
                             // .replace(/"(\+?|-?)(0|0\.[0-9]*|[1-9][0-9]*[.]?[0-9]*)"(?!:)/g, '$1$2')
                             .replace(/("[-+.eE0-9]+")(?!:)/g, (...args) => {
                                 s = args[1].replace(/"/g, '');
-                                if (isNaN(Number(s, 10))) return args[1];
+                                if (isNaN(Number(s, 10)) || s.match(/^0\d/)) return args[1];
                                 else return s;})
                             // 去掉多余的双引号
                             .replace(/"{2,}/g, '"');
