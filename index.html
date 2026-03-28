@@ -126,11 +126,11 @@
                 <option value=10>10px</option>
                 <option value=8 > 8px</option>
             </select>
-            <select id="view-version" class="selector" style="width: 6.5rem;" onchange="setViewVersion(event)" title="json2html版本">
+            <select id="view-version" class="selector" style="width: 6.5rem;" onchange="setViewVersion(this)" title="json2html版本">
                 <option value=1 selected>Html-li</option>
                 <option value=2>Html-p</option>
             </select>
-            <select id="view-indent" class="selector" style="width: 2.5rem; display: none;" onchange="setIndentUnit(event)" title="缩进单元">
+            <select id="view-indent" class="selector" style="width: 2.5rem; display: none;" onchange="setIndentUnit(this)" title="缩进单元">
                 <option value=4 selected>4</option>
                 <option value=2>2</option>
             </select>
@@ -213,7 +213,7 @@
             </div>
         </div>
         <div class="input-container">
-            <input type="text" id="input-key" oninput="findKey(event)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
+            <input type="text" id="input-key" oninput="findKey(this)" placeholder="&#x1F50E;&#xFE0E; find key" onfocus="this.placeholder=''" onblur="this.placeholder='&#x1F50E;&#xFE0E; find key'">
         </div>
         <script>
             const area1 = document.getElementById("text1");
@@ -270,8 +270,9 @@
             }
 
             var searchKey = "";
-            function findKey(event) {
-                searchKey = event.target.value;
+            function findKey(ele) {
+                searchKey = ele.value;
+                ele.style.width = (ele.value.length + 10) + "ch";
                 render();
             }
             function isMatch (src, tgt) {
@@ -383,7 +384,11 @@
                             .replace(/"false"/g, 'false')
                             .replace(/"null"/g, 'null')
                             // 去掉数值型 value 的双引号
-                            .replace(/"(\+?|-?)(0|0\.[0-9]*|[1-9][0-9]*[.]?[0-9]*)"(?!:)/g, '$1$2')
+                            // .replace(/"(\+?|-?)(0|0\.[0-9]*|[1-9][0-9]*[.]?[0-9]*)"(?!:)/g, '$1$2')
+                            .replace(/("[-+.eE0-9]+")(?!:)/g, (...args) => {
+                                s = args[1].replace(/"/g, '');
+                                if (isNaN(Number(s, 10)) || s.match(/^0\d/)) return args[1];
+                                else return s;})
                             // 去掉多余的双引号
                             .replace(/"{2,}/g, '"');
                     // 占位符还原
@@ -421,12 +426,12 @@
                 render();
             }
             function setIndentUnit(obj) {
-                var unit = event.target.value;
+                var unit = obj.value;
                 option.indentUnit = parseInt(unit);
                 render();
             }
             function setViewVersion(obj) {
-                var version = event.target.value;
+                var version = obj.value;
                 option.json2htmlVersion = parseInt(version);
                 if (version == 2) {
                     document.getElementById("view-indent").style.display = "inline-block";
@@ -491,9 +496,9 @@
             }
             function minifyJson() {
                 option.compress = true;
-                document.getElementById("view-version").value = 2;
-                option.json2htmlVersion = 2;
-                render();
+                const viewVersion = document.getElementById("view-version");
+                viewVersion.value = 2;
+                setViewVersion(viewVersion);
                 option.compress = false;
             }
             var isBoldFont = true;
