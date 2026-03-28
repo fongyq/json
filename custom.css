@@ -23,6 +23,7 @@ body {
 .function-container {
     text-align: center;
     padding: 10px 0 16px;
+    user-select: none;
 }
 
 .editor-container {
